@@ -1,0 +1,90 @@
+/*
+    Link: https://leetcode.com/problems/merge-k-sorted-lists/submissions/
+    Time complexity: O(kn) where k is the max number of nodes in a list
+    Space complexity: O(1)
+*/
+
+
+class Solution {
+public:
+    void pushList(ListNode** head, ListNode** toPush){
+        ListNode* temp;
+        ListNode* temp2;
+        ListNode* current1 = *toPush;
+        ListNode* current2 = *head;
+        if( current2 == NULL ){
+            
+            *head = *toPush;
+            return;
+            
+        }
+        while(current1){
+            
+
+            if(current1->val < current2->val){
+                
+                *head = current1;
+                temp = current1->next;
+                current1->next = current2;
+                current1 = temp;
+                current2 = *head;
+                
+            }
+            
+            while(current2->next && current1){
+                
+                if(current1->val < current2->next->val){
+                    
+                    temp = current2->next;
+                    current2->next = current1;
+                    temp2 = current1->next;
+                    current1->next = temp;
+                    current1 = temp2;
+                    current2 = current2->next;
+                    
+                    
+                }else{
+                    
+                    current2 = current2->next;
+                }
+                
+                
+            }
+            
+            if(current2->next == NULL && current1){
+                
+                current2->next = current1;
+                break;
+                
+            }
+            
+        }
+        
+        return;
+        
+    }
+    
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        
+        ListNode* head = NULL;
+        int f = lists.size();
+        
+        if(lists.size()){
+            
+            head = lists[0];
+            
+            for(int i = 1; i < f; ++i){
+            
+            ListNode* toPush = lists[i];
+            pushList(&head,&toPush);
+            
+            }
+            
+        }
+        
+
+        
+        
+        return head;
+    }
+};
