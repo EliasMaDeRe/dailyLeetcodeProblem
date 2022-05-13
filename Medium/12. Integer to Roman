@@ -1,0 +1,35 @@
+/*
+    Link: https://leetcode.com/problems/integer-to-roman/submissions/
+*/
+
+
+class Solution {
+public:
+    string intToRoman(int num) {
+        string ans;
+        int symbols[13] = {1,4,5,9,10,40,50,90,100,400,500,900,1000};
+        string toadd[13] = {"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
+        int temp = 0,j=12;
+        while(num){
+            
+            temp = num / symbols[j];
+            num %= symbols[j];
+            if(temp){
+                
+                for(int i = 0; i < temp; ++i){
+                    
+                   if(temp ) 
+                    
+                   ans+=toadd[j];
+                    
+                }
+                
+            }
+            --j;
+            
+         }
+        
+        return ans;
+        
+    }
+};
