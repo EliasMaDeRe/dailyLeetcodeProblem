@@ -1,0 +1,41 @@
+/*
+    Link: https://leetcode.com/problems/longest-common-prefix/
+    Time complexity: O(N*n) where N is the number of strings and n is the maximum lenght of a string
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        
+        string prefix = strs[0];
+        int f = strs.size();
+        
+        for(int i = 1; i < f; ++i){
+        
+            int f2 = prefix.size();
+            string temp = strs[i];
+            int f3 = temp.size();
+            
+            for(int j = 0; j < f2; ++j){
+            
+                if(j+1 > f3){
+                    
+                    prefix = prefix.substr(0,j);
+                    break;
+                    
+                }
+                
+                if(temp[j] != prefix[j]){
+                    
+                    prefix = prefix.substr(0,j);
+                    break;
+                    
+                }
+                
+            }
+            
+        }
+        return prefix;
+        
+    }
+};
