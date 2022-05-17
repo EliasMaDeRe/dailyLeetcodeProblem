@@ -1,0 +1,39 @@
+/*
+    Link: https://leetcode.com/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/submissions/
+    Time complexity: O(n) 
+    Space complexity: O(n) to store answer
+*/
+class Solution {
+public:
+    vector<int> minOperations(string boxes) {
+        
+        int f = boxes.size(),balls=0,past=0;
+        vector<int> ans(f);
+        
+        for(int i = 0; i < f; ++i){
+            
+            ans[i] += balls;
+            if(boxes[i] == '1'){
+                
+                ++past;
+                
+            }
+            balls+=past;
+            
+        }
+        balls = 0;
+        past = 0;
+        for(int i = --f; i >= 0; --i ){
+            
+            ans[i] += balls;
+            if(boxes[i] == '1'){
+                
+                ++past;
+                
+            }
+            balls+=past;
+            
+        }
+        return ans;
+    }
+};
