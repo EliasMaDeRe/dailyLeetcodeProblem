@@ -1,0 +1,46 @@
+/*
+    Link: https://leetcode.com/problems/valid-parentheses/
+*/
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<int> pastBrackets;
+        int f = s.size();
+        for(int i = 0; i < f; ++i){
+            
+            if(s[i] == '(' || s[i] == '{' || s[i] == '['){
+                
+                pastBrackets.push(s[i]);
+                
+            }else{
+                if(!pastBrackets.size()){
+                    
+                    return false;
+                    
+                }
+                char curr = pastBrackets.top();
+                cout<<"expected: "<<curr<<" got: "<<s[i]<<"\n";
+                if(curr - s[i] < 3 && curr - s[i] > -3 ){
+                    cout<<"went through \n";
+                    pastBrackets.pop();
+                    
+                }else{
+                    
+                    break;
+                    
+                }
+                
+            }
+            
+        }
+        if(!pastBrackets.size()){
+            
+            return true;
+            
+        }else{
+            
+            return false;
+            
+        }
+    }
+};
