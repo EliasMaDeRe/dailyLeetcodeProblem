@@ -1,0 +1,29 @@
+/*
+    Link: https://leetcode.com/problems/remove-element/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int f=nums.size();
+        int k = 0,v=0;
+        
+        for(int i = 0; i < f; ++i){
+            
+            if(nums[i] != val){
+                
+                nums[v] = nums[i];
+                ++v;
+                
+            }else{
+                
+                ++k;
+                
+            }
+            
+        }
+        
+        return f-k;
+    }
+};
