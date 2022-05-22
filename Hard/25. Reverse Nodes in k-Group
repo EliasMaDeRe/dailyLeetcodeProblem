@@ -1,0 +1,68 @@
+/*
+    Link: https://leetcode.com/problems/reverse-nodes-in-k-group/
+    Time complexity: O(n)
+    Space complexity: O(n) since we store the values in a deque, could be lowered to O(1) by reversing the list in-position
+*/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        
+        
+        ListNode* curr = head;
+        int f = 0;
+        while(curr){
+            
+            ++f;
+            curr=curr->next;
+            
+        }
+        curr = head;
+        ListNode* temp;
+        int v = f / k;
+        deque<int> values;
+        
+        for(int i = 0; i < v; ++i){
+            
+            temp = curr;
+            
+            for(int j = 0; j < k; ++j){
+                if(!curr){
+                    
+                    break;
+                    
+                }
+                values.push_back(curr->val);
+                curr = curr->next;
+                
+            }
+            curr = temp;
+            for(int j = 0; j < k; ++j){
+                
+                if(!curr){
+                    
+                    break;
+                    
+                }
+                curr->val = values.back();
+                values.pop_back();
+                curr = curr->next;
+                
+            }
+            
+            
+        }
+        
+        return head;
+        
+    }
+};
