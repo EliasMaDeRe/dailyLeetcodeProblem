@@ -1,0 +1,26 @@
+/*
+    Link: https://leetcode.com/problems/remove-duplicates-from-sorted-array/submissions/
+    Time complexity: O(n)
+    Space complexity: O(m) where m is the numbers of values nums[i] can be
+*/
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        
+        int f = nums.size();
+        int visited[201] = {0};
+        int start = 0;
+        for(int i = 0; i < f; ++i){
+            
+            if(!visited[nums[i]+100]){
+                
+                nums[start] = nums[i];
+                ++start;
+                ++visited[nums[i]+100];
+                
+            }
+            
+        }
+        return start;
+    }
+};
