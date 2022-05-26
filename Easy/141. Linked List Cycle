@@ -1,0 +1,44 @@
+/*
+    Link: https://leetcode.com/problems/linked-list-cycle/
+*/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        
+        ListNode* curr = head;
+        bool ans = true;
+        map<ListNode*,int> mapa;
+        if(!head){
+            
+            return false;
+            
+        }
+        while(mapa.find(&(*curr)) == mapa.end()){
+            cout<<&(*curr)<<"\n";
+            mapa[&(*curr)] = 1;
+            if(curr->next){
+                
+                curr = curr->next;
+                
+            }else{
+                
+                ans = false;
+                break;
+                
+            }
+            
+            
+        }
+        
+        return ans;
+        
+    }
+};
