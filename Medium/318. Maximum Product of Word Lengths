@@ -1,0 +1,54 @@
+/*
+    Link: https://leetcode.com/problems/maximum-product-of-word-lengths/
+*/
+class Solution {
+public:
+    bool checaPalabra(string word1, string word2){
+        
+        char hashmap[26]={0};
+        for(int i = 0; i < word1.size(); ++i){
+            
+            hashmap[122-word1[i]]++;
+            
+        }
+        
+        for(int i = 0; i < word2.size(); ++i){
+            
+            if(hashmap[122-word2[i]]){
+                
+                return true;
+                
+            }
+            
+        }
+        
+        return false;
+        
+    }
+    
+    int maxProduct(vector<string>& words) {
+        
+        int ans = 0;
+        
+        for(int i = 0; i < words.size(); ++i){
+            
+            for(int j = i; j < words.size(); ++j){
+                
+                if(!checaPalabra(words[i],words[j])){
+                    
+                    if(words[i].size()*words[j].size() > ans){
+                        
+                        ans = words[i].size()*words[j].size();
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        return ans;
+        
+    }
+};
