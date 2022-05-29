@@ -1,0 +1,48 @@
+/*
+    Link: https://leetcode.com/problems/generate-parentheses/submissions/
+*/
+class Solution {
+public:
+    
+    vector<string> ans;
+    void getP(int open, int toOpen,string curr){        
+        if(!toOpen){
+            
+            for(int i = 0; i < open; ++i){
+                
+                curr.push_back(')');
+                
+            }
+            ans.push_back(curr);
+            return;
+            
+        }
+        
+        if(!open){
+            
+            curr.push_back('(');
+            getP(open+1,toOpen-1,curr);
+            
+        }else{
+            
+            curr.push_back('(');
+            getP(open+1,toOpen-1,curr);
+            curr.pop_back();
+            curr.push_back(')');
+            getP(open-1,toOpen,curr);
+            curr.pop_back();
+            
+        }
+        
+        return;
+        
+    }
+    
+    vector<string> generateParenthesis(int n) {
+        
+        getP(0,n,"");
+        
+        
+        return ans;
+    }
+};
