@@ -1,0 +1,31 @@
+/*
+    Link: https://leetcode.com/problems/valid-anagram/
+*/
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.size() > t.size()){
+            
+            return false;
+            
+        }
+        int letters[26] = {0};
+        for(int i = 0; i < s.size(); ++i){
+            
+            letters[s[i]-97]++;
+            
+        }
+        for(int i = 0; i < t.size(); ++i){
+            if(!letters[t[i]-97]){
+                
+                return false;
+                
+            }
+            letters[t[i]-97]--;
+            
+        }
+        
+        return true;
+        
+    }
+};
