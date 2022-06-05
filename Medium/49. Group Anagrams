@@ -1,0 +1,53 @@
+/*
+    Link: https://leetcode.com/problems/group-anagrams/submissions/
+    Time complexity: n(m(log(m))) where n is the size of the given string vector
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs){
+        
+        vector<vector<string>> ans;
+        
+        map<string,vector<int> > words;
+        
+        for(int i = 0; i < strs.size(); ++i){
+            
+            string key = strs[i];
+            
+            sort(key.begin(),key.end());
+
+            words[key].push_back(i);
+            
+            
+
+            
+        }
+        for(int i = 0; i < strs.size(); ++i){
+            
+            vector<string> curr;
+            
+            string key = strs[i];
+                
+            sort(key.begin(),key.end());
+            
+            for(int j = 0; j < words[key].size(); ++j){
+                
+                curr.push_back(strs[words[key][j]]);    
+                
+            }
+            words.erase(key);
+            if(curr.size()){
+                
+                ans.push_back(curr);
+                
+            }
+            
+
+            
+        }
+        
+        return ans;
+        
+    }
+};
