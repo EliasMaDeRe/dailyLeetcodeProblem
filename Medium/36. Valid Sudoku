@@ -1,0 +1,42 @@
+/*
+    Link: https://leetcode.com/problems/valid-sudoku/submissions/
+*/
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        
+        int fila[9][10]={0},columna[9][10]={0},cuadrante[9][10]={0};
+        
+        for(int i = 0; i < 9; ++i){
+            
+            for(int j = 0; j < 9; ++j){
+                
+                if(board[i][j] != '.'){
+                    
+                    if(fila[i][board[i][j]-49]++){
+                        
+                        return false;
+                        
+                    }
+                    if(columna[j][board[i][j]-49]++){
+                        
+                        return false;
+                        
+                    }
+                    
+                    if(cuadrante[(i/3 + (j/3 * 3))][board[i][j]-49]++){
+                        
+                        return false;
+                        
+                    }
+                }
+                
+            }
+            
+        }
+        
+        return true;
+    
+        
+    }
+};
