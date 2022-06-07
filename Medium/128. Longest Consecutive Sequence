@@ -1,0 +1,30 @@
+/*
+    Link: https://leetcode.com/problems/longest-consecutive-sequence/submissions/
+    Time complexity: O(nlog(n))
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        
+        map<int,int> pnums;
+        for(int i = 0; i < nums.size(); ++i){
+            
+            pnums[nums[i]]++;
+            
+        }
+        int ans = 0,curr=0,last;
+        for(auto it : pnums){
+            
+            curr = (!curr) ? ++curr : (it.first == last+1) ? ++curr : 1;
+            last = it.first;
+            ans = (curr > ans) ? curr : ans;
+            
+        }
+        
+        
+        
+        return ans;
+        
+    }
+};
