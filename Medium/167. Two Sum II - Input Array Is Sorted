@@ -1,0 +1,21 @@
+/*
+    Link: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int s=0,e=numbers.size()-1;
+        while(s < e){
+            
+            if(numbers[s] + numbers[e] == target) break;
+            (numbers[s] + numbers[e] > target) ? --e : ++s;
+            
+        }
+
+        vector<int> ans{++s,++e};
+        
+        return ans;
+    }
+};
