@@ -1,0 +1,36 @@
+/*
+    Link: https://leetcode.com/problems/valid-palindrome/
+    Time complextity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int st=0,end=s.size()-1;
+        while(st < end){
+            
+
+            while(st < end && (!(s[st] <= 57 && s[st] >= 48) && !(s[st] <= 90 && s[st] >= 65) && !(s[st] <= 122 && s[st] >= 97)) ) ++st;
+            
+            while(st < end && (!(s[end] <= 57 && s[end] >= 48) && !(s[end] <= 90 && s[end] >= 65) && !(s[end] <= 122 && s[end] >= 97)) ) --end;
+            
+            if(s[st] >= 65 && s[st] <= 90) s[st]+=32;
+            
+            if(s[end] >= 65 && s[end] <= 90) s[end]+=32;
+            
+
+            
+            if(s[st] != s[end]) return false;
+            else{
+                
+                ++st;
+                --end;
+                
+            }
+            
+        }
+        
+        return true;
+        
+    }
+};
