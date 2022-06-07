@@ -1,0 +1,45 @@
+/*
+    Link: https://leetcode.com/problems/3sum/submissions/
+    Time complexity: O(n^2)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        vector<vector<int>> ans;
+        
+        sort(nums.begin(),nums.end());
+        
+        for(int i = 0; i < nums.size(); ++i){
+            
+            if(i) if(nums[i] == nums[i-1]) continue;
+            int l = i+1,r = nums.size()-1;
+            while(l < r){
+                
+                
+                
+                if(nums[i] + nums[l] + nums[r] == 0){
+                    
+                    vector<int> curr{nums[i],nums[l],nums[r]};
+                    ans.push_back(curr);
+                    ++l;
+                    while(nums[l] == nums[l-1] && l < r){
+                    
+                        ++l;
+                    }
+                    
+                    
+                }else (nums[i] + nums[l] + nums[r] > 0) ? --r : ++l; 
+                    
+                
+                
+                
+            }
+            
+        }
+      
+        return ans;
+        
+    }
+};
