@@ -1,0 +1,30 @@
+/*
+    Link: https://leetcode.com/problems/container-with-most-water/submissions/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+       int maxArea(vector<int>& height) {
+        
+        int j = height.size()-1,i=0,ans=INT_MIN;
+        
+        while(i < j){
+            int k = min(height[i],height[j]);
+            int f = k*(j-i);
+            ans = max(ans,f);
+                       
+            while(height[j] <= k && i < j){
+                --j;
+            }            
+
+            while(height[i] <= k && i < j){
+                ++i;
+            }
+            
+        }
+        
+        return ans;
+        
+    }
+};
