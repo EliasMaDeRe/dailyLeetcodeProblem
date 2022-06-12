@@ -1,0 +1,31 @@
+/*
+    Link: https://leetcode.com/problems/longest-repeating-character-replacement/submissions/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        
+        int chars[256]={0};
+        int ans = 0, st = 0, e = 0, maxcount = 0;
+        for(int i = 0; i < s.size(); ++i){
+            
+            maxcount = max(maxcount,++chars[s[i]]);
+            if((e - st + 1) - maxcount > k){
+                
+                --chars[s[st]];
+                ++st;
+                
+            }
+            ans = e - st + 1;
+            ++e;
+            
+        }
+        
+        
+        
+        return ans;
+        
+    }
+};
