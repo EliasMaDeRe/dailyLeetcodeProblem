@@ -1,0 +1,58 @@
+/*
+    Link: https://leetcode.com/problems/longest-palindromic-substring/submissions/
+    Time complexity: O(n^2)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    string longestPalindrome(string word) {
+        
+        string newstring = "";
+        for(int i = 0; i < word.size(); ++i){
+
+            newstring.push_back(word[i]);
+            newstring.push_back('|');
+
+        }
+        newstring.pop_back();
+        string ans = "";
+        int sans = 0, send = 0;
+        for(int i = 0; i < newstring.size(); ++i){
+        
+            int s = i-1, e = i+1;
+            while(s >= 0 && e < newstring.size()){
+                
+                if(newstring[s] == newstring[e]){
+                    
+                    if(e+1-s > send+1-sans && newstring[s] != '|'){
+                    
+                        send = e;
+                        sans = s;
+                    
+                    }
+                    
+                }else break;
+                ++e;
+                --s;
+                
+                
+            }
+        
+        }
+        ans = newstring.substr(sans,send+1-sans);
+        string anst = "";
+        for(int i = 0; i < ans.size(); ++i){
+            
+            if(ans[i] != '|'){
+                
+                anst.push_back(ans[i]);
+                
+            }
+            
+        }
+        
+        return anst;
+                
+        
+    }
+};
