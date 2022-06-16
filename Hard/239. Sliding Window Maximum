@@ -1,0 +1,38 @@
+/*
+    Link: https://leetcode.com/problems/sliding-window-maximum/submissions/
+    Time complexity: O(n)
+    Space complexity: O(n)
+
+*/
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        
+        vector<int> output;
+        deque<int> deck;
+        int s = 0, e = 0;
+        
+        while(e < nums.size()){
+            
+            while(!deck.empty() && nums[deck.back()] < nums[e]) deck.pop_back();
+            deck.push_back(e);
+            
+            if(s > deck.front()) deck.pop_front();
+
+            if(e+1-s >= k) {
+
+                output.push_back(nums[deck.front()]);
+                ++s;
+
+            }
+
+            ++e;
+            
+        }
+        
+
+        
+        return output;
+        
+    }
+};
