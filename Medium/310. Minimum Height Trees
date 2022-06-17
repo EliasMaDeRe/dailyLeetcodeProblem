@@ -1,0 +1,59 @@
+/*
+    Link: https://leetcode.com/problems/minimum-height-trees/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+        
+        vector<vector<int>> adjlist(n);
+        vector<int> grados(n,0);
+        vector<int> ans(n,0);
+        
+        for(int i = 0; i < edges.size(); ++i){
+            
+            adjlist[edges[i][0]].push_back(edges[i][1]);
+            adjlist[edges[i][1]].push_back(edges[i][0]);
+            ++grados[edges[i][0]];
+            ++grados[edges[i][1]];
+            
+        }
+        
+        queue<int> nodes;
+        
+        for(int i = 0; i < n; ++i){
+            
+            if(grados[i] == 1){
+                
+                nodes.push(i);
+                --grados[i];
+                
+            }
+            
+        }
+        
+        while(!nodes.empty()){
+            
+            int s = nodes.size();
+            ans.clear();
+            for(int i = 0; i < s; ++i){
+                
+                int curr = nodes.front();
+                nodes.pop();
+                ans.push_back(curr);
+                for(auto adj : adjlist[curr]){
+                    
+                    --grados[adj];
+                    if(grados[adj] == 1) nodes.push(adj);
+                    
+                }
+                
+            }
+            
+        }
+        if(n == 1) return {0};
+        return ans;
+        
+    }
+};
