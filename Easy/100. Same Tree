@@ -1,0 +1,56 @@
+/*
+    Link: https://leetcode.com/problems/same-tree/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        
+        queue<TreeNode*> pque;
+        queue<TreeNode*> qque;
+        
+        if(p && !q || !p && q) return false;
+        if(!p && !q) return true;
+        pque.push(p);
+        qque.push(q);
+        while(!pque.empty()){
+            
+            if(pque.front()->val != qque.front()->val) return false;
+            if(pque.front()->left && !qque.front()->left || !pque.front()->left && qque.front()->left) return false;
+            if(pque.front()->right && !qque.front()->right || !pque.front()->right && qque.front()->right) return false;
+            if(pque.front()->left){
+                
+                pque.push(pque.front()->left);
+                qque.push(qque.front()->left);
+                
+            }
+            if(pque.front()->right){
+                
+                pque.push(pque.front()->right);
+                qque.push(qque.front()->right);
+                
+            }
+            
+            pque.pop();
+            qque.pop();
+            
+        }
+        
+        
+        return true;
+        
+        
+    }
+};
