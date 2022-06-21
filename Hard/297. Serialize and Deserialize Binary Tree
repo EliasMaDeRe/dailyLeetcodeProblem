@@ -1,0 +1,73 @@
+/*
+    Link: https://leetcode.com/problems/serialize-and-deserialize-binary-tree/submissions/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serS = "";
+    string serialize(TreeNode* root) {
+        
+        serializeHelper(root);
+        cout<<serS;
+        return serS;
+        
+    }
+    void serializeHelper(TreeNode* root){
+        
+        if(!root){
+            
+            serS+="#,";
+            return;
+            
+        }
+        serS+=to_string(root->val) + ",";
+        serializeHelper(root->left);
+        serializeHelper(root->right);
+        
+        
+    }
+
+
+    // Decodes your encoded data to tree.
+    int st = 0;
+    TreeNode* deserialize(string data) {
+        
+        TreeNode* root = desHelper(data,st);
+        return root;
+        
+    }
+    TreeNode* desHelper(string &data, int &st){
+        
+        string value = "";
+        while(data[st] != ',' && st < data.size()){
+            
+            value.push_back(data[st]);
+            ++st;
+            
+        }
+        ++st;
+        if(value == "#") return NULL;
+        TreeNode* current = new TreeNode(stoi(value));
+        current->left = desHelper(data,st);
+        current->right = desHelper(data,st);
+        return current;
+        
+    }
+    
+};
+
+// Your Codec object will be instantiated and called as such:
+// Codec ser, deser;
+// TreeNode* ans = deser.deserialize(ser.serialize(root));
