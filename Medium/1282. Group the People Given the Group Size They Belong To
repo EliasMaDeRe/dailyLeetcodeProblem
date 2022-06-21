@@ -1,0 +1,48 @@
+/*
+    Link: https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to/submissions/
+    Time complexity: O(n(log(n)))
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    vector<vector<int>> groupThePeople(vector<int>& groupSizes) {
+        
+        vector<vector<int>> ans;
+        
+        map<int,vector<int>> groups;
+        
+        for(int i = 0; i < groupSizes.size(); ++i){
+            
+            groups[groupSizes[i]].push_back(i);
+            
+        }
+        
+        for(auto x : groups){
+            
+            vector<int> curr(x.first,0);
+            
+            for(int i = 0; i < x.second.size(); ++i){
+                
+                curr.clear();
+                
+                int counter = 0;                
+                
+                while(counter < x.first && i < x.second.size()){
+                    
+                    curr.push_back(x.second[i]);
+                    ++counter;
+                    ++i;
+                    
+                    
+                }
+                --i;
+                ans.push_back(curr);
+                
+            }                               
+            
+        }
+        
+        return ans;
+        
+    }
+};
