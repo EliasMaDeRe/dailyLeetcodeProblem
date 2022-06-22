@@ -1,0 +1,92 @@
+/*
+    Link: https://leetcode.com/problems/min-stack/submissions/
+    Time complexity: O(1) when pushing poping top and min
+    Space complexity: O(1) extra space
+*/
+class stackNode{
+public:
+    stackNode* next;
+    stackNode* before;
+    int data;
+    int minyet=0;
+    stackNode(int val){
+        
+        data = val;
+        minyet = val;
+        before = NULL;
+        next = NULL;
+        
+    }
+    stackNode(int val, stackNode* last){
+        
+        if(last) minyet = min(last->minyet,val);
+        else minyet = val;
+        data = val;
+        before = last;
+        next = NULL;
+        
+    }
+    
+    
+};
+class MinStack {
+public:
+    stackNode* root = NULL;
+    stackNode* tail = NULL;
+    MinStack() {
+       
+    }
+    
+    void push(int val) {
+        
+        if(!root){
+            stackNode* Node = new stackNode(val);
+            root = Node;
+            tail = Node;
+            return;
+            
+        }
+        
+        tail->next = new stackNode(val,tail);
+        tail = tail->next;
+        
+    }
+    
+    void pop() {
+        if(!tail->before){
+            
+            delete(tail);
+            root = NULL;
+            tail = NULL;
+            return;
+            
+        }
+        stackNode* newtail = tail->before;
+        delete(tail);
+        tail = newtail;
+        if(tail){
+            
+            tail->next = NULL;
+            
+        }
+        
+        
+    }
+    
+    int top() {
+        return tail->data;
+    }
+    
+    int getMin() {
+        return tail->minyet;
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
