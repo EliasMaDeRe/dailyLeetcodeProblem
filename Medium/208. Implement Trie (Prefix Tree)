@@ -1,0 +1,79 @@
+/*
+    Link: https://leetcode.com/problems/implement-trie-prefix-tree/submissions/
+    Time complexity: O(1)
+    Space complexity: O(1)
+*/
+class EntryNode{
+public:
+    
+    map<char,EntryNode*> childs;
+    bool isEnd = false;
+    void Entry(){
+        
+      
+        
+    }
+
+    
+};
+class Trie {
+public:
+    
+    EntryNode* root;
+    Trie() {
+        root = new EntryNode();
+    }
+    
+    void insert(string word) {
+        EntryNode* curr = root;
+        for(int i = 0; i < word.size(); ++i){
+                           
+            if(curr->childs.find(word[i]) == curr->childs.end()){
+                
+                curr->childs[word[i]] = new EntryNode();
+                
+            }
+            curr = curr->childs[word[i]];
+        
+        
+        }
+        curr->isEnd = true;
+        
+    
+    }
+    bool search(string word) {
+        EntryNode* curr = root;
+        for(int i = 0; i < word.size(); ++i){
+            
+            if(curr->childs.find(word[i]) == curr->childs.end()){
+                
+                return false;
+                
+            }
+            curr = curr->childs[word[i]];
+            
+        }
+        return curr->isEnd;
+        
+    }
+    
+    bool startsWith(string prefix) {
+        EntryNode* curr = root;
+        for(int i = 0; i < prefix.size(); ++i){
+            
+            if(curr->childs.find(prefix[i]) == curr->childs.end()) return false;
+            curr = curr->childs[prefix[i]];
+            
+        }
+        return true;
+    }
+  
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
