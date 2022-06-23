@@ -1,0 +1,52 @@
+/*
+    Link: https://leetcode.com/problems/evaluate-reverse-polish-notation/submissions/
+    Time complexity: O(n) considering input reading
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+     
+        stack<int> operands;
+        int last;
+        for(int i = 0; i < tokens.size(); ++i){
+            
+            if(tokens[i] == "+"){
+                
+                last = operands.top();
+                operands.pop();
+                operands.top()+=last;
+                
+            }else
+            if(tokens[i] == "-"){
+                
+                last = operands.top();
+                operands.pop();
+                operands.top()-=last;
+                
+                
+            }else
+            if(tokens[i] == "/"){
+                
+                last = operands.top();
+                operands.pop();
+                operands.top()/=last;
+                
+                
+            }else
+            if(tokens[i] == "*"){
+                
+                last = operands.top();
+                operands.pop();
+                operands.top()*=last;
+                
+                
+            }else operands.push(stoi(tokens[i]));
+            
+            
+        }
+        
+        return operands.top();
+        
+    }
+};
