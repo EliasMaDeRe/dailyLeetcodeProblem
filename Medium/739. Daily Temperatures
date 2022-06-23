@@ -1,0 +1,45 @@
+/*
+    Link: https://leetcode.com/problems/daily-temperatures/submissions/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        
+        stack<pair<int,int> > pend;
+        vector<int> ans(temperatures.size(),0);
+        pair<int,int> curr = {temperatures[0],0};
+        for(int i = 1; i < temperatures.size(); ++i){
+            
+            if(temperatures[i]  > curr.first){
+                
+                ans[curr.second] = i-curr.second;
+                while(pend.size()){
+                    
+                    curr = pend.top();
+                    if(temperatures[i] > curr.first){
+                        
+                        ans[curr.second] = i-curr.second;
+                        pend.pop();
+                        
+                    }else{
+                        
+                        break;
+                        
+                    }
+                    
+                }
+                
+            }else{
+                
+                pend.push(curr);
+                
+            }
+            curr = {temperatures[i],i};
+            
+        }
+        
+        return ans;
+    }
+};
