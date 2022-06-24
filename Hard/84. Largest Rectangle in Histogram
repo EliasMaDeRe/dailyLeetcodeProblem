@@ -1,0 +1,50 @@
+/*
+    Link: https://leetcode.com/problems/largest-rectangle-in-histogram/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        
+        stack<pair<int,int>> values;
+        int indextp;
+        int ans = INT_MIN;
+        for(int i = 0; i < heights.size(); ++i){
+            
+            if(values.empty()) values.push({heights[i],i});
+            else{
+                
+                indextp = i;
+                while(heights[i] < values.top().first){
+                    
+                    if((i-values.top().second)*values.top().first > ans){
+                        
+                        ans = (i-values.top().second)*values.top().first;
+                        
+                        
+                    }
+                    indextp = values.top().second;
+                    values.pop();
+                    if(!values.size()) break;
+                    
+                }
+                values.push({heights[i],indextp});
+                
+            }
+            
+        }
+        while(!values.empty()){
+            
+            int curr = values.top().first*(heights.size()-values.top().second);
+            
+            ans = max(ans,curr);
+            
+            values.pop();
+            
+        }
+        
+        return ans;
+        
+    }
+};
