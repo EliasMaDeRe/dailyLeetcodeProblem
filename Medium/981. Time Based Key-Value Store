@@ -1,0 +1,45 @@
+/*
+    Link: https://leetcode.com/problems/time-based-key-value-store/submissions/
+    Time complexity: O(log(n))
+    Space complexity: O(n)
+*/
+class TimeMap {
+public:
+    map<string,vector<pair<int,string>> > values;
+    TimeMap() {
+        
+    }
+    
+    void set(string key, string value, int timestamp) {
+        
+        values[key].push_back({timestamp,value});
+        
+    }
+    
+    string get(string key, int timestamp) {
+     
+        int s = 0, e = values[key].size()-1;
+        if(e < 0) return "";
+        if(timestamp < values[key][0].first) return "";
+        
+        while(s <= e){
+            
+            int mid = (s+e)/2;
+            
+            if(values[key][mid].first < timestamp) s = mid + 1;
+            else if(values[key][mid].first > timestamp) e = mid - 1;
+            else return values[key][mid].second;
+            
+        }
+        
+        return values[key][e].second;
+        
+    }
+};
+
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap* obj = new TimeMap();
+ * obj->set(key,value,timestamp);
+ * string param_2 = obj->get(key,timestamp);
+ */
