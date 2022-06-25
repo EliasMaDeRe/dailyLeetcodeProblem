@@ -1,0 +1,40 @@
+/*
+    Link: https://leetcode.com/problems/search-a-2d-matrix/
+    Time complexity: O(log(n))
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        if(target < matrix[0][0]) return false;
+        
+        int s = 0 , e = matrix.size()-1;
+        while(s <= e){
+            
+            if(matrix[(s+e)/2][0] <= target){
+                
+                s = ((s+e)/2)+1;
+                
+            }else{
+                
+                e = ((s+e)/2)-1;
+                
+            }
+            
+        }
+        int row = e;
+        s = 0, e = matrix[row].size()-1;
+        while(s <= e){
+            
+            if(matrix[row][(s+e)/2] == target) return true;
+            else if(matrix[row][(s+e)/2] < target) s = ((s+e)/2)+1;
+            else e = ((s+e)/2)-1;
+            
+        }
+        
+        
+        return false;
+        
+    }
+};
