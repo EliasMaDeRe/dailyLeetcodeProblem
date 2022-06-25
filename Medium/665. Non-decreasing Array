@@ -1,0 +1,38 @@
+/*
+    Link: https://leetcode.com/problems/non-decreasing-array/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    bool checkPossibility(vector<int>& nums) {
+        
+        if(nums.size() == 1) return true;
+        pair<int,int> r;
+        int counter = 0;
+        for(int i = 0; i < nums.size(); ++i){
+            
+            if(counter){
+                
+                if(nums[i] < r.first && nums[i] < r.second) return false;
+                
+            }
+            
+            if(i) if(nums[i] < nums[i-1]){
+                if(i-2 >= 0) if(nums[i-2] > nums[i]) r.second = nums[i-1];
+                else r.second = nums[i];
+                r.first = nums[i-1];
+                
+                if(counter) return false;
+                ++counter;
+                
+            } 
+            
+        }
+        
+        return true;
+        
+        
+        
+    }
+};
