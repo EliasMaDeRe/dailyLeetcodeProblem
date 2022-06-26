@@ -1,0 +1,58 @@
+/*
+    Link: https://leetcode.com/problems/find-median-from-data-stream/
+    Time complexity: O(log(n))
+    Space complexity: O(n)
+*/
+class MedianFinder {
+public:
+    priority_queue<int> maxheap;
+    priority_queue<int,vector<int>,greater<int>> minheap;
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+        
+        maxheap.push(num);
+        // si los valores no van ahi
+        if(maxheap.size() && minheap.size()){
+            
+            if(maxheap.top() > minheap.top()){
+                
+                minheap.push(maxheap.top());
+                maxheap.pop();
+                
+            }
+            
+        }
+        //si los tamaños son de mas de  1 diferencia
+        if(maxheap.size() > minheap.size()+1){
+            
+            minheap.push(maxheap.top());
+            maxheap.pop();
+            
+        }
+        if(minheap.size() > maxheap.size()+1){
+            
+            maxheap.push(minheap.top());
+            minheap.pop();
+            
+        }
+        
+    }
+    
+    double findMedian() {
+        
+        if(maxheap.size() == minheap.size()) return (float)(maxheap.top()+minheap.top())/2;
+        if(maxheap.size() > minheap.size()) return maxheap.top();
+        return minheap.top();
+        
+    }
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
