@@ -1,0 +1,89 @@
+/*
+    Link: https://leetcode.com/problems/design-add-and-search-words-data-structure/submissions/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class entryNode{
+public:
+    
+    map<char,entryNode*> childs;
+    bool isEnd = false;
+    entryNode(){
+        
+        
+        
+    }
+    
+};
+class WordDictionary {
+public:
+    entryNode* root;
+    WordDictionary() {
+        
+        root = new entryNode();
+        
+    }
+    
+    void addWord(string word) {
+        
+        entryNode* curr = root;
+        for(int i = 0; i < word.size(); ++i){
+            
+            if(curr->childs.find(word[i]) == curr->childs.end()){
+                
+                curr->childs[word[i]] = new entryNode();
+                
+            }
+            curr = curr->childs[word[i]];
+            
+        }
+        curr->isEnd = true;
+        
+    }
+    
+    bool search(string word) {
+        
+        entryNode* curr = root;
+        
+        return searchHelper(word,curr);
+        
+    }
+    bool searchHelper(string word, entryNode* start){
+        
+        
+        entryNode* curr = start;
+        
+        for(int i = 0; i < word.size(); ++i){
+            
+            if(word[i] == '.'){
+                
+                for(auto x : curr->childs){
+                    
+                    
+                    if(searchHelper(word.substr(i+1,word.size()-(i+1)),x.second)) return true;
+                    
+                }
+                return false;
+                
+            }else{
+                
+                if(curr->childs.find(word[i]) == curr->childs.end()) return false;
+                curr = curr->childs[word[i]];
+                
+                
+            }
+            
+        }
+        
+        return curr->isEnd;
+        
+        
+    }
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */
