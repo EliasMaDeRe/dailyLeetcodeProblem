@@ -1,0 +1,44 @@
+/*
+    Link: https://leetcode.com/problems/combination-sum/
+    Time complexity: O(2^h)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    int targetg;
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        targetg = target;
+        vector<vector<int>> ans;
+        vector<int> curr;
+        for(int i = 0; i < candidates.size(); ++i){
+            
+            curr.push_back(candidates[i]);
+            dfs(candidates,ans,curr,candidates[i],i);
+            curr.pop_back();
+            
+        }
+        
+        return ans;
+        
+        
+    }
+    void dfs(vector<int>& candidates, vector<vector<int>>& ans, vector<int>& curr, int sum, int index){
+        
+        if(sum == targetg){
+            
+            ans.push_back(curr);
+            return;
+            
+        }
+        if(sum > targetg) return;
+        
+        
+        for(int i = index; i < candidates.size(); ++i){
+            
+            curr.push_back(candidates[i]);
+            dfs(candidates,ans,curr,sum+candidates[i],i);
+            curr.pop_back();
+            
+        }
+    }
+};
