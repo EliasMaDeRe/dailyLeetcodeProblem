@@ -1,0 +1,53 @@
+/*
+    Link: https://leetcode.com/problems/word-search/
+    Time complexity: O(m*n*word.size())
+    Space complexity: O(word.size())
+*/
+class Solution {
+public:
+    int movesy[4] = {1 , 0 ,-1 , 0};
+    int movesx[4] = {0 , 1 , 0, -1};
+    bool ans = false;
+    bool exist(vector<vector<char>>& board,const string word) {
+        
+        string curr = "";
+        for(int i = 0; i < board.size(); ++i){
+            
+            for(int j = 0; j < board[0].size(); ++j){
+                
+                dfs(board,word,curr,i,j,0);
+                if(ans) return ans;
+                
+            }
+            
+        }
+        
+        return ans;
+        
+    }
+    void dfs(vector<vector<char>>& board,const string word, string& curr, int x, int y, int index){
+        
+        if(x < 0 || y < 0 || x >= board.size() || y >= board[0].size()) return;
+        if(board[x][y] == '#') return;
+        
+        
+        char c = board[x][y];
+        if(c != word[index]) return;
+        curr.push_back(c);
+        if(curr == word) ans = true;
+        
+        if(!ans){
+            
+            board[x][y] = '#';
+            for(int i = 0; i < 4; ++i){
+                
+                dfs(board,word,curr,x+movesx[i],y+movesy[i],index+1);
+                if(ans) break;
+            }
+            board[x][y] = c;
+            
+        }
+        curr.pop_back();
+        
+    }
+};
