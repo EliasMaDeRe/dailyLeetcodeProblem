@@ -1,0 +1,93 @@
+/*
+    Link: https://leetcode.com/problems/word-search-ii/submissions/
+    Time complexity: i'd guess a lot
+    Space complexity: 
+*/
+class entryNode{
+public:
+    
+    map<char,entryNode*> childs;
+    string word = "";
+    entryNode(){
+        
+        
+        
+    }
+    
+    
+};
+class Trie{
+public:    
+    
+    entryNode* root;
+    Trie(){
+        
+        root = new entryNode();
+        
+    }
+    void insert(string word){
+        
+        entryNode* current = root;
+        for(int i = 0; i < word.size(); ++i){
+            
+            if(current->childs.find(word[i]) == current->childs.end()){
+                
+                current->childs[word[i]] = new entryNode();
+                
+            }
+            current = current->childs[word[i]];
+            
+        }
+        current->word = word;
+        
+    }
+    
+    
+};
+class Solution {
+public:
+    
+    Trie* obj = new Trie();
+    vector<string> ans;
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        
+        for(int i = 0; i < words.size(); ++i){
+            
+            obj->insert(words[i]);
+            
+        }
+        for(int i = 0; i < board.size(); ++i){
+            
+            for(int j = 0; j < board[0].size(); ++j){
+                
+                dfs(board,i,j,obj->root);
+                
+            }
+            
+        }
+        
+        
+        return ans;
+        
+    }
+    void dfs(vector<vector<char>>& board, int x, int y, entryNode* p){
+        
+        if(x < 0 || y < 0 || x >= board.size() || y >= board[0].size()) return;
+        
+        char c = board[x][y];
+        if(c == '#' || p->childs.find(c) == p->childs.end()) return;
+        p = p->childs[c];
+        if(p->word != ""){
+            ans.push_back(p->word);  
+            p->word = "";
+        }
+        board[x][y] = '#';
+        dfs(board,x+1,y,p);
+        dfs(board,x,y+1,p);
+        dfs(board,x,y-1,p);
+        dfs(board,x-1,y,p);
+        board[x][y] = c;
+        
+    }
+
+};
