@@ -1,0 +1,39 @@
+/*
+    Link: https://leetcode.com/problems/number-of-islands/submissions/
+    Time complexity: O(n*m)
+    Space complexity: O(n*m) can be O(1) by modifying given grid's values permanently
+*/
+class Solution {
+public:
+    bool visited[301][301]={0};
+    int counter = 0;
+    int numIslands(vector<vector<char>>& grid) {
+                
+        for(int i = 0; i < grid.size(); ++i){
+            
+            for(int j = 0; j < grid[0].size(); ++j){
+                
+                dfs(i,j,grid,1);
+                
+            }
+            
+        }
+        
+        return counter;
+    }
+    void dfs(int i, int j,vector<vector<char>>& grid, int origin){
+        
+        if(grid[i][j] == '0') return;
+        if(visited[i][j]) return;
+        visited[i][j] = true;
+        if(origin) ++counter;
+        
+        if(i+1 < grid.size()) dfs(i+1,j,grid,0);
+        if(j+1 < grid[0].size()) dfs(i,j+1,grid,0);
+        if(i-1 >= 0) dfs(i-1,j,grid,0);
+        if(j-1 >= 0) dfs(i,j-1,grid,0);
+        
+        
+        
+    }
+};
