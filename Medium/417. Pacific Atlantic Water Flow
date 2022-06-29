@@ -1,0 +1,83 @@
+/*
+    Link: https://leetcode.com/problems/pacific-atlantic-water-flow/submissions/
+    Time complexity: O(n*m)
+    Space complexity: O(n*m)
+*/
+class Solution {
+public:
+    
+    bool reachP[201][201] = {0};
+    bool reachA[201][201] = {0};
+    
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        
+        vector<vector<int>> ans;
+        
+        for(int i = 0; i < heights[0].size(); ++i){
+            
+            reachPacific(0,i,heights);
+            reachAtlantic(heights.size()-1,i,heights);
+            
+        }
+        
+        for(int i = 0; i < heights.size(); ++i){
+            
+            reachPacific(i,0,heights);
+            reachAtlantic(i,heights[0].size()-1,heights);
+            
+        }
+        vector<int> curr;
+        
+        for(int i = 0; i < heights.size(); ++i){
+            
+            for(int j = 0 ; j < heights[0].size(); ++j){
+                
+                
+                
+                if(reachP[i][j] && reachA[i][j]){
+                    
+                    curr.push_back(i);
+                    curr.push_back(j);
+                    ans.push_back(curr);
+                    curr.clear();
+                    
+                }
+                
+                
+                
+                
+                
+            }
+            
+        }
+        
+        return ans;
+        
+    }
+    void reachPacific(int i, int j,vector<vector<int>>& heights){
+        
+        if(reachP[i][j]) return;
+        
+        
+        
+        reachP[i][j] = true;
+        
+        if(i-1 >= 0) if(heights[i][j] <= heights[i-1][j]) reachPacific(i-1,j,heights);
+        if(j+1 < heights[0].size()) if(heights[i][j] <= heights[i][j+1]) reachPacific(i,j+1,heights);
+        if(j-1 >= 0) if(heights[i][j] <= heights[i][j-1]) reachPacific(i,j-1,heights);
+        if(i+1 < heights.size()) if(heights[i][j] <= heights[i+1][j]) reachPacific(i+1,j,heights);
+    }
+     void reachAtlantic(int i, int j,vector<vector<int>>& heights){
+
+        if(reachA[i][j]) return;
+         
+
+        reachA[i][j] = true;
+
+        if(i-1 >= 0) if(heights[i][j] <= heights[i-1][j]) reachAtlantic(i-1,j,heights);
+        if(j+1 < heights[0].size()) if(heights[i][j] <= heights[i][j+1]) reachAtlantic(i,j+1,heights);
+        if(j-1 >= 0) if(heights[i][j] <= heights[i][j-1]) reachAtlantic(i,j-1,heights);
+        if(i+1 < heights.size()) if(heights[i][j] <= heights[i+1][j]) reachAtlantic(i+1,j,heights);
+    }   
+ 
+};
