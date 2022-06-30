@@ -1,0 +1,49 @@
+/*
+    Link: https://leetcode.com/problems/course-schedule/
+    Time complexity: O(n+e)
+    Space complexity: O(e)
+*/
+class Solution {
+public:
+    bool visited[2001] = {0};
+    
+    unordered_map<int,vector<int>> adj;
+    bool canFinish(const int numCourses,const vector<vector<int>>& prerequisites) {
+        
+        for(int i = 0; i < prerequisites.size(); ++i){
+            
+            adj[prerequisites[i][0]].push_back(prerequisites[i][1]);
+            
+        }
+        for(auto x : adj){
+            
+            if(!visited[x.first]){
+                
+                if(!dfs(x.first)) return false;
+                
+            }
+            
+        }
+        
+        return true;
+        
+    }
+    bool dfs(const int current){
+        
+        if(visited[current]) return false;
+
+        visited[current] = true;
+        
+        for(int i = adj[current].size()-1; i >= 0; --i){
+            
+            if(!dfs(adj[current][i])) return false;
+            adj[current].pop_back();
+            
+            
+        }
+        visited[current] = false;
+        
+        return true;
+        
+    }
+};   
