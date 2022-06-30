@@ -1,0 +1,62 @@
+/*
+    Link: https://leetcode.com/problems/number-of-provinces/submissions/
+    Time complexity: O(n^2)
+    Space complexity: O(n^2)    
+*/
+class Solution {
+public:
+    
+    bool visited[201] = {0};
+    unordered_map<int,vector<int>> adj;
+    int counter = 0;
+    int findCircleNum(const vector<vector<int>>& isConnected) {
+        
+        for(int i = 0; i < isConnected.size(); ++i){
+            
+            for(int j = 0; j < isConnected[0].size(); ++j){
+                
+                    
+                if(isConnected[i][j]){
+
+                    adj[i].push_back(j);
+                    adj[j].push_back(i);
+
+                }
+                    
+
+                
+            }
+            
+        }
+        
+        for(auto x : adj){
+            
+            
+            if(visited[x.first] == false){
+                
+                dfs(x.first);
+                ++counter;
+                
+            } 
+            
+        }
+        
+        return counter;
+        
+    }
+    void dfs(const int current){
+        
+        visited[current] = true;
+        
+        for(int i = 0; i < adj[current].size(); ++i){
+            
+            if(visited[adj[current][i]] == false){
+                
+                dfs(adj[current][i]);
+                
+            }
+            
+        }
+        
+    }
+};
