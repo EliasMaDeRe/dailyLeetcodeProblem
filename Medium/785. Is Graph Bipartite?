@@ -1,0 +1,33 @@
+/*
+    Link: https://leetcode.com/problems/is-graph-bipartite/submissions/
+    Time complexity: O(n+e)
+    Space complexity: O(n+e)
+*/
+class Solution {
+public:
+    int colors[201] = {0};
+    bool isBipartite(const vector<vector<int>>& graph) {
+        
+       int c = 1;
+        
+        for(int i = 0; i < graph.size(); ++i){
+            
+            if(!colors[i] && !dfs(graph,i,-c)) return false;
+            
+        }
+        return true;
+        
+    }
+    bool dfs(const vector<vector<int>>& graph, int i, int c){
+        
+        colors[i] = c;
+        for(int j = 0; j < graph[i].size(); ++j){
+            
+            if(!colors[graph[i][j]] && !dfs(graph,graph[i][j],-c)) return false;
+            else if(colors[graph[i][j]] == c) return false;
+            
+        }
+        return true;
+        
+    }
+};
