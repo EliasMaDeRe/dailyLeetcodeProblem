@@ -1,0 +1,55 @@
+/*
+    Link: https://leetcode.com/problems/max-consecutive-ones-iii/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int longestOnes(const vector<int>& nums, int k) {
+        
+        int ans = 0;
+        
+        int s = 0, e  = 0;
+        while(e < nums.size()){
+            
+            if(!nums[e]){
+                
+                if(k){
+                    
+                    ans = max(ans,(e+1)-s);
+                    --k;
+                    ++e;
+                } 
+                else{
+                                        
+                    while(nums[s] && s < e ){
+                        
+                        ++s;
+                        
+                    }
+                    if(s != e){
+                        
+                        ++k;
+                        ++s;
+                        
+                    }else{
+                        
+                        while(e < nums.size() && !nums[e]) ++e;
+                        s = e;
+                        
+                    }
+                    
+                }
+                
+            }else{
+                
+                ans = max(ans,(e+1)-s);
+                ++e;
+                
+            }
+            
+        }
+        return ans;
+        
+    }
+};
