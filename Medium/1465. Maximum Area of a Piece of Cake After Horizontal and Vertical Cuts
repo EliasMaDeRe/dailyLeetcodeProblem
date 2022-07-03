@@ -1,0 +1,23 @@
+/*
+    Link: https://leetcode.com/problems/maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts/
+    Time complexity: O(n(log(n)))
+    Space complexity: O(n) sort needed
+*/
+class Solution {
+public:
+    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
+        
+        sort(horizontalCuts.begin(),horizontalCuts.end());
+        sort(verticalCuts.begin(),verticalCuts.end());
+        
+        long long vmax, hmax;
+        vmax = max(verticalCuts[0],w-verticalCuts[verticalCuts.size()-1]);
+        hmax = max(horizontalCuts[0],h-horizontalCuts[horizontalCuts.size()-1]);
+        
+        for(int i = 0; i < horizontalCuts.size()-1; ++i) if(horizontalCuts[i+1]-horizontalCuts[i] > hmax) hmax = horizontalCuts[i+1]-horizontalCuts[i];
+        for(int i = 0; i < verticalCuts.size()-1; ++i) if(verticalCuts[i+1]-verticalCuts[i] > vmax) vmax = verticalCuts[i+1]-verticalCuts[i];
+        
+        return (vmax * hmax) % 1000000007;
+        
+    }
+};
