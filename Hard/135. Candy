@@ -1,0 +1,29 @@
+/*
+    Link: https://leetcode.com/problems/candy/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        
+        vector<int> needed(ratings.size(),1);
+        
+        for(int i = 1; i < ratings.size(); ++i){
+            
+            if(ratings[i] > ratings[i-1] && needed[i] <= needed[i-1]) needed[i] = needed[i-1]+1;
+            
+        }
+        int ans = needed[ratings.size()-1];
+        for(int i = ratings.size()-2; i >= 0; --i){
+            
+            if(ratings[i] > ratings[i+1] && needed[i] <= needed[i+1]) needed[i] = needed[i+1]+1;
+            ans+=needed[i];
+            
+        }
+        
+        
+        return ans;
+        
+    }
+};
