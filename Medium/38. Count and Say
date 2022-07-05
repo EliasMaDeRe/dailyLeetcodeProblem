@@ -1,0 +1,36 @@
+/*
+    Link: https://leetcode.com/problems/count-and-say/submissions/
+*/
+class Solution {
+public:
+    string countAndSay(int n) {
+        
+        string ans;
+
+        ans+='1';
+
+            for (int i = 1; i < n; ++i)
+            {
+                string buffer;
+
+                for (int index = 0; index < ans.size(); ++index)
+                {
+                    int cnt = 1;
+
+                    while(index + 1 < ans.size() && ans[index + 1] == ans[index]) 
+                    {
+                        ++index;
+                        ++cnt;
+                    }
+
+                    buffer.push_back(cnt + '0');
+                    buffer.push_back(ans[index]);
+                }
+
+                ans = buffer;
+            }
+
+            return ans;
+        
+    }
+};
