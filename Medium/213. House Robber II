@@ -1,0 +1,48 @@
+/*
+    Link: https://leetcode.com/problems/house-robber-ii/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        
+        if(nums.size() == 1) return nums[0];
+        
+        int maxi = 0;
+        int last = 0, blast = 0, temp = 0;
+        for(int i = 1; i < nums.size(); ++i){
+            
+            if(i == 1) {blast = nums[i]; last = blast;}
+            else if(i == 2) last = max(blast,nums[i]);
+            else{
+                
+                temp = last;
+                last = max(blast+nums[i],temp);
+                blast = temp;
+                
+            }
+            
+        }
+        maxi = last;
+
+        for(int i = nums.size()-2; i >= 0; --i){
+            
+            if(i == nums.size()-2) {blast = nums[i]; last = blast;}
+            else if(i == nums.size()-3) last = max(blast,nums[i]);
+            else{
+                
+                temp = last;
+                last = max(blast+nums[i],temp);
+                blast = temp;
+                
+            }
+            
+        }
+
+        maxi = max(last,maxi);
+        
+        return maxi;
+        
+    }
+};
