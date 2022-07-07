@@ -1,0 +1,46 @@
+/*
+    Link: https://leetcode.com/problems/palindromic-substrings/
+    Time complexity: O(n^2)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int countSubstrings(const string s) {
+        
+        int ans = 0,st,e;
+        
+        for(int i = 0; i < s.size(); ++i){
+            
+            st = i;
+            e = i;
+            
+            while(st >= 0 && e < s.size()){
+                
+                if(s[st] == s[e]) ++ans;
+                else break;
+                --st;
+                ++e;
+                
+            }
+            
+        }
+        for(int i = 0; i < s.size(); ++i){
+            
+            st = i;
+            e = i+1;
+            
+            while(st >= 0 && e < s.size()){
+                
+                if(s[st] == s[e]) ++ans;
+                else break;
+                --st;
+                ++e;
+                
+            }
+            
+        }
+        
+        return ans;
+        
+    }
+};
