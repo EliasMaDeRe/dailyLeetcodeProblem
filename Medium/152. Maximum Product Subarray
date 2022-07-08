@@ -1,0 +1,30 @@
+/*
+    Link: https://leetcode.com/problems/maximum-product-subarray/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int maxProduct(const vector<int>& nums) {
+        
+        int Max, Min, temp;
+        
+        int MaxMax = nums[0];
+        Max = nums[0];
+        Min = nums[0];
+        
+        for(int i = 1; i < nums.size(); ++i){
+            
+            
+            temp = Max * nums[i];
+            Max = max(max(nums[i],temp),Min*nums[i]);
+            Min = min(min(nums[i],temp),Min*nums[i]);
+            MaxMax = max(MaxMax,Max);
+            
+        }
+        
+        return MaxMax;
+        
+        
+    }
+};
