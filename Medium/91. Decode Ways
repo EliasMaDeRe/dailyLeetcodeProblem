@@ -1,0 +1,27 @@
+/*
+    Link: https://leetcode.com/problems/decode-ways/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int numDecodings(const string s) {
+        
+        int curr = 0, past1 = 1, past2 = 0;
+        
+        for(int i = s.size()-1; i >= 0; --i){
+            
+            if(s[i] != '0') curr += past1;
+            if(i+1 <= s.size()-1 && (s[i] == '1' || s[i] == '2' && s[i+1] < '7')) curr += past2;
+            
+            past2 = past1;
+            past1 = curr;
+            curr = 0;
+            
+        }
+    
+        return past1;        
+        
+    }
+};
+
