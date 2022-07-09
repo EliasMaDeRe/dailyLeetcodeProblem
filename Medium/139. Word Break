@@ -1,0 +1,30 @@
+/*
+    Link: https://leetcode.com/problems/word-break/
+    Time complexity: O(n*k) where n is the size of the string and k is the number of words in dic
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    int dp[301] = {0};
+    bool wordBreak(const string s, const vector<string>& wordDict) {
+        
+        dp[s.size()] = 1;
+        for(int i = s.size()-1; i >= 0; --i){
+            
+            for(int j = 0; j < wordDict.size(); ++j){   
+                
+                if(s.substr(i,wordDict[j].size()) == wordDict[j] && dp[i+wordDict[j].size()]){
+                    
+                    dp[i] = true;
+                    break;
+                    
+                }
+                
+            }
+            
+        }
+        
+        return dp[0];
+        
+    }
+};
