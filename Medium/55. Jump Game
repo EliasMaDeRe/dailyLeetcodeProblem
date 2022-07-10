@@ -1,0 +1,19 @@
+/*
+    Link: https://leetcode.com/problems/jump-game/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    bool canJump(const vector<int>& nums) {
+        
+        int fuel = nums[0];
+        
+        for(int i = 0; i < nums.size()-1; ++i,--fuel){
+            fuel = max(fuel,nums[i]);
+            if(!fuel) return false;
+        }
+        return true;
+        
+    }
+};
