@@ -1,0 +1,27 @@
+/*
+    Link: https://leetcode.com/problems/unique-paths/
+    Time complexity: O(n*m)
+    Space complexity: O(n*m)
+*/
+class Solution {
+public:
+    int movesTo[101][101] = {0};
+    int uniquePaths(int m, int n) {
+        
+        return moveTo(--m,--n);
+        
+    }
+    int moveTo(int m, int n){
+        
+        if(m < 0 || n < 0) return 0;
+        if(m == 0 || n == 0) return 1;
+        
+        if(movesTo[m][n]) return movesTo[m][n];
+        
+        movesTo[m][n] = moveTo(m-1,n) + moveTo(m,n-1);
+        
+        return movesTo[m][n];
+        
+        
+    }
+};
