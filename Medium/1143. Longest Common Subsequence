@@ -1,0 +1,26 @@
+/*
+    Link: https://leetcode.com/problems/longest-common-subsequence/
+    Time complexity: O(n*m)
+    Space complexity: O(n*m)
+*/
+class Solution {
+public:
+    int dp[1001][1001] = {0};
+    int longestCommonSubsequence(string text1, string text2) {
+        
+        return lgc(0,0,text1,text2);
+        
+    }
+    int lgc(int y, int x, string& text1, string& text2){
+        
+        if(y >= text1.size() || x >= text2.size()) return 0;
+        
+        if(dp[y][x]) return dp[y][x];
+        
+        if(text1[y] == text2[x]) dp[y][x] = lgc(y+1,x+1,text1,text2)+1;
+        else dp[y][x] = max(lgc(y+1,x,text1,text2),lgc(y,x+1,text1,text2));
+        
+        return dp[y][x];
+        
+    }
+};
