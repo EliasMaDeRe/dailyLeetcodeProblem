@@ -1,0 +1,57 @@
+/*
+    Link: https://leetcode.com/problems/set-matrix-zeroes/
+    TIme complexity: O(n*m)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        
+        int filas = matrix.size(), columnas = matrix[0].size();
+        bool filac = false;
+        
+        for(int i = 0; i < filas; ++i){
+            
+            for(int j = 0; j < columnas; ++j){
+                
+                if(!matrix[i][j]){
+                    
+                    matrix[0][j] = 0;
+                    if(i) matrix[i][0] = 0;
+                    else filac = true;
+                    
+                }
+                
+            }
+            
+        }
+        for(int i = 1; i < filas; ++i){
+            
+            for(int j = 1; j < columnas; ++j){
+                
+                if(!matrix[0][j] || !matrix[i][0]) matrix[i][j] = 0;
+                
+            }
+            
+        }
+        
+        if(!matrix[0][0]){
+            
+            for(int i = 0; i < filas; ++i){
+                
+                matrix[i][0] =  0;
+                
+            }
+            
+        }
+        if(filac){
+            
+            for(int j = 0; j < columnas; ++j){
+                
+                matrix[0][j] = 0;
+                
+            }
+            
+        }
+    }
+};
