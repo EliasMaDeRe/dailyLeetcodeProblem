@@ -1,0 +1,12 @@
+/*
+    Link: https://leetcode.com/problems/sum-of-two-integers/
+    Time complexity: O(1)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int getSum(int a, int b) {
+        
+        return (a|b) + (a&b);
+    }
+};
