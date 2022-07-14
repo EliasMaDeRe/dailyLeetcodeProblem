@@ -1,0 +1,55 @@
+/*
+    Link: https://leetcode.com/problems/lru-cache
+    Time complexity: O(1) average
+    Space complexity: O(n)
+*/
+class LRUCache {
+public:
+    unordered_map<int,int> dictionary;
+    unordered_map<int,list<int>::iterator> address;
+    list<int> history;
+    int maxSize;
+    LRUCache(int capacity) {
+        maxSize = capacity;
+    }
+    
+    int get(int key) {
+        
+        if(dictionary.find(key) == dictionary.end()) return -1;
+        
+        history.erase(address[key]);
+        history.push_front(key);
+        address[key] = history.begin();
+        
+       return dictionary[key];
+        
+    }
+    
+    void put(int key, int value) {
+        
+        if(dictionary.size() == maxSize && dictionary.find(key) == dictionary.end()){
+            
+            dictionary.erase(history.back());
+            address.erase(history.back());
+            history.pop_back();
+            
+        }
+        if(address.find(key) != address.end()){
+            
+            history.erase(address[key]);
+            
+            
+        }
+        history.push_front(key);
+        address[key] = history.begin();
+        dictionary[key] = value;
+        
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
