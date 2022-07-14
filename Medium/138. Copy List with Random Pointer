@@ -1,0 +1,65 @@
+/*
+    Link: https://leetcode.com/problems/copy-list-with-random-pointer/
+    Time complexity: O(n(log(n)))
+    Space complexity: O(n)
+*/
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    map<Node*,int> originalDictionary;
+    map<int,Node*> newDictionary;
+    Node* copyRandomList(Node* head) {
+        
+        if(!head) return NULL;
+        
+        Node* newhead = new Node(head->val);
+        Node* newlistcurr = newhead;
+        Node* curr = head;
+        int i = 0;
+        while(curr){
+            
+            newDictionary[i] = newlistcurr;
+            originalDictionary[curr] = i;
+            if(curr->next){
+                
+                newlistcurr->next = new Node(curr->next->val);
+                newlistcurr = newlistcurr->next;
+                
+            }else newlistcurr->next = NULL;
+            curr = curr->next;
+            ++i;
+            
+        }
+        curr = head;
+        newlistcurr = newhead;
+        while(curr){
+            
+            if(curr->random){
+                
+                newlistcurr->random = newDictionary[originalDictionary[curr->random]];
+                
+            }
+            curr = curr->next;
+            newlistcurr = newlistcurr->next;
+            
+        }
+        
+        return newhead;
+        
+    }
+};
