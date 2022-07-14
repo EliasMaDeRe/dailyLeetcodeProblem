@@ -1,0 +1,79 @@
+/*
+    Link: https://leetcode.com/problems/add-two-numbers/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    
+        
+        int currentSum = 0;
+        int overboard = 0;
+        bool flag = true;
+        ListNode* head;
+        ListNode* currentPointer;
+        
+        while(l1 || l2 || overboard){
+            currentSum = 0;
+            if(l1){
+                currentSum += l1->val;
+            }
+            if(l2){
+                currentSum += l2->val;
+            }
+            currentSum += overboard;
+            if(currentSum >= 10){
+                
+                currentSum -= 10;
+                overboard = 1;
+                
+                
+            }else{
+                
+                overboard = 0;
+                
+            }
+            
+            if(flag){
+                
+                ListNode* currentNode = new ListNode(currentSum);
+                head = currentNode;
+                currentPointer = currentNode;
+                flag = false;
+                
+            }else{
+                
+                ListNode* currentNode = new ListNode(currentSum);
+                currentPointer->next = currentNode;
+                currentPointer = currentNode;
+                
+            }
+            
+            if(l1){
+                
+                l1 = l1->next;
+                
+            }
+            if(l2){
+                
+                l2 = l2->next;
+                
+            }
+            
+            
+        }
+        return head;
+        
+    }
+};
