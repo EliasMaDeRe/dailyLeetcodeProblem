@@ -1,0 +1,25 @@
+/*
+    Link: https://leetcode.com/problems/minimize-maximum-pair-sum-in-array/
+    Time complexity: O(n(log(n)))
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int minPairSum(vector<int>& nums) {
+        
+        sort(nums.begin(),nums.end());
+        int maxi = INT_MIN;
+        int s = 0, e = nums.size()-1;
+        while(s < e){
+            
+            maxi = max(maxi,nums[e]+nums[s]);
+            ++s;
+            --e;
+            
+        }
+        
+        return maxi;
+        
+        
+    }
+};
