@@ -1,0 +1,45 @@
+/*
+    Link: https://leetcode.com/problems/count-good-nodes-in-binary-tree/
+    Time complexity: O(v)
+    Space complexity: O(v)
+*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int goodNodes(TreeNode* root) {
+        
+        if(!root) return 0;
+        
+        int count = 1;
+        
+        check(root->left,count,root->val);
+        check(root->right,count,root->val);
+        
+        return count;
+        
+    }
+    void check(TreeNode* root,int& count, int maxSofar){
+        
+        if(!root) return;
+        
+        if(maxSofar <= root->val){
+            
+            ++count;
+            maxSofar = max(maxSofar,root->val);
+            
+        }
+        check(root->left,count,maxSofar);
+        check(root->right,count,maxSofar);
+        
+    }
+};
