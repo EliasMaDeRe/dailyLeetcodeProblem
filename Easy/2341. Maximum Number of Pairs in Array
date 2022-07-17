@@ -1,0 +1,26 @@
+/*
+    Link: https://leetcode.com/problems/maximum-number-of-pairs-in-array/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    int app[101] = {};
+    vector<int> numberOfPairs(const vector<int>& nums) {
+        
+        int ans = 0, r = 0;
+        for(int i = 0; i < nums.size(); ++i){
+            
+            ++app[nums[i]];
+            
+        }
+        for(int i = 0; i < 101; ++i){
+            
+            ans+=app[i]/2;
+            r+=app[i]%2;
+            
+        }
+        return {ans,r};
+        
+    }
+};
