@@ -1,0 +1,42 @@
+/*
+    Link: https://leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    unordered_map<long long,pair<int, int>> mapa;
+    int maximumSum(const vector<int>& nums) {
+        
+        int maxi, ans = -1;
+        int digits = 0;
+        int curr;
+        for(int i = 0; i < nums.size(); ++i){
+            
+            curr = nums[i];
+            digits = 0;
+            while(curr){
+                
+                digits+=curr%10;
+                curr/=10;
+                
+            }
+            if(mapa.find(digits) == mapa.end()){
+                
+                mapa[digits].first = nums[i];
+                mapa[digits].second = -1;
+                
+            }else{
+                maxi = mapa[digits].first;
+                mapa[digits].first = max(mapa[digits].first,nums[i]);
+                mapa[digits].second = max(mapa[digits].second,maxi+nums[i]);
+                ans = max(mapa[digits].second,ans);
+                
+            }
+            
+        }
+        
+        return ans;
+        
+    }
+};
