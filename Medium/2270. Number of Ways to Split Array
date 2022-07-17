@@ -1,0 +1,33 @@
+/*
+    Link: https://leetcode.com/problems/number-of-ways-to-split-array/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+
+    int waysToSplitArray(vector<int>& nums) {
+        
+        
+        long long ans = 0;
+        vector<long long> sumrightex(nums.size(),0);
+        long long currsum = 0;
+
+        
+        for(int i = nums.size()-2; i >= 0; --i){
+            
+            sumrightex[i] = sumrightex[i+1]+nums[i+1];
+            
+        }
+        for(int i = 0; i < nums.size()-1; ++i){
+            
+            currsum+=nums[i];
+            if(currsum >= sumrightex[i]) ++ans;
+            
+        }
+        
+        return ans;
+        
+        
+    }
+};
