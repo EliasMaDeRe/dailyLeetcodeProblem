@@ -1,0 +1,40 @@
+/*
+    Link: https://leetcode.com/problems/number-of-ways-to-split-a-string/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int numWays(const string s) {
+        
+        int nOnes = 0;
+        long long size = s.size(), mod = 1e9+7;
+        
+        for(auto& character : s) nOnes += (character=='1');
+        
+        if(nOnes % 3) return 0;
+        if(!nOnes) return (((size-1)*(size-2))/2)%mod;
+        
+        int cuts = 1;
+        long long curr = 1, res = 1, count = 0;
+        
+        for(auto& character : s){
+            
+            if(character == '1') ++count;
+            else if(count == nOnes/3 && cuts < 3) ++curr;
+            
+            if(count > (nOnes)/3){
+                
+                ++cuts;
+                count = 1;
+                res = (res*curr)%mod;
+                curr = 1;
+                
+            }
+        }
+        
+        return res%mod;
+        
+        
+    }
+};
