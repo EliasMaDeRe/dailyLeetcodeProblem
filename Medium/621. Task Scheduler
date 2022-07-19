@@ -1,0 +1,46 @@
+/*
+    Link: https://leetcode.com/problems/task-scheduler/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    priority_queue<int> heap;
+    int counts[27] = {};
+    queue<pair<int,int>> cooldown;
+    int time = 0;
+    
+    int leastInterval(const vector<char>& tasks, int n) {
+        
+        for(int i = 0; i < tasks.size(); ++i) ++counts[tasks[i]-'A'];
+        for(int i = 0; i < 27; ++i) if(counts[i]) heap.push(counts[i]);
+        
+        while(heap.size() || cooldown.size()){
+            
+            if(cooldown.size()){
+                
+                if(time > cooldown.front().second){
+                    
+                    heap.push(cooldown.front().first);
+                    cooldown.pop();
+                    
+                }
+                
+            }            
+            
+            if(heap.size()){
+                
+                if(heap.top()-1 > 0) cooldown.push({heap.top()-1,time+n});
+                heap.pop();
+                
+            }
+            
+            ++time;
+            
+        }
+        
+        
+        return time;
+        
+    }
+};
