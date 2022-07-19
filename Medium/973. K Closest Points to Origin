@@ -1,0 +1,25 @@
+/*
+    Link: https://leetcode.com/problems/k-closest-points-to-origin/
+    Time complexity: O(n(log(n)))
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    priority_queue<pair<double,int>> heap;
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        
+        vector<vector<int>> ans;
+        
+        for(int i = 0; i < points.size(); ++i){
+            
+            heap.push({sqrt(points[i][0]*points[i][0]+points[i][1]*points[i][1]),i});
+            if(heap.size() > k) heap.pop();
+            
+        }
+        for( ; heap.size(); heap.pop()) ans.push_back({points[heap.top().second][0],
+                                                      points[heap.top().second][1]});
+        
+        return ans;
+        
+    }
+};
