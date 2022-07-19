@@ -1,0 +1,70 @@
+/*
+    Link: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+    Time complexity: O(log(n))
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int p1=-1,p2=-1;
+    vector<int> searchRange(vector<int>& nums, int target) {
+        
+        int s = 0, e = nums.size()-1;
+        while(s <= e){
+            
+            if(nums[(s+e)/2] == target){
+                p1 = (s+e)/2;
+                p2 = p1;
+                bsl(s,(s+e)/2-1,target,nums);
+                bsr((s+e)/2+1,e,target,nums);
+                break;
+                
+            }else{
+                
+                if(nums[(s+e)/2] < target) s = (s+e)/2+1;
+                else e = (s+e)/2-1;
+                
+            }
+            
+        }
+        
+        return {p1,p2};
+        
+    }
+    void bsl(int s, int e, int target, vector<int>& nums){
+        
+        while(s <= e){
+            
+            if(nums[(s+e)/2] >= target){
+                
+                if(nums[(s+e)/2] == target) p1 = min(p1,(s+e)/2);
+                e = (s+e)/2-1;
+                
+            }else{
+                
+                s = (s+e)/2+1;
+                
+            }
+            
+        }
+        
+    }
+    void bsr(int s, int e, int& target, vector<int>& nums){
+
+        while(s <= e){
+
+            if(nums[(s+e)/2] <= target){
+
+                if(nums[(s+e)/2] == target) p2 = max(p2,(s+e)/2);
+                s = (s+e)/2+1;
+               
+            }else{
+
+                e = (s+e)/2-1;
+
+
+            }
+
+        }
+
+    }
+};
