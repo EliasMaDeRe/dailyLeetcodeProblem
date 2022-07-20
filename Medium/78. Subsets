@@ -1,0 +1,29 @@
+/*
+    Link: https://leetcode.com/problems/subsets/
+    Time complexity: O(2^n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    vector<vector<int>> ans {1,vector<int>(0)};
+    vector<vector<int>> subsets(vector<int>& nums) {
+        
+        vector<int> curr;
+        subsets(nums,curr,0);
+        
+        return ans;
+        
+    }
+    void subsets(vector<int>& nums, vector<int>& curr, int index){
+        
+        for(int i = index; i < nums.size(); ++i){
+            
+            curr.push_back(nums[i]);
+            subsets(nums,curr,i+1);
+            ans.push_back(curr);
+            curr.pop_back();
+            
+        }
+        
+    }
+};
