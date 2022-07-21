@@ -1,0 +1,90 @@
+/*
+    Link: https://leetcode.com/problems/rotting-oranges/
+    Time complexity: O(n*m)
+    Space complexity: O(n*m)
+*/
+class Solution {
+public:
+    int norg = 0;
+    int vorg = 0;
+    int ans = 0;
+    vector<vector<int>> values{11,vector<int>(11,INT_MAX)};
+    map<pair<int,int>,bool> visited;
+    queue<pair<int,pair<int,int>>> tovisit;
+    int orangesRotting(vector<vector<int>>& grid) {
+        
+        queue<pair<int,int>> bfs;
+        
+        for(int i = 0; i < grid.size(); ++i){
+
+            for(int j = 0; j < grid[0].size(); ++j){
+                
+                if(grid[i][j]){
+                    ++norg;
+                    
+                    if(grid[i][j] == 2){
+                        
+                        visited.clear();
+                        bfs1(i,j,grid);
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        for(int i = 0; i < grid.size(); ++i){
+            
+            for(int j = 0; j < grid[0].size(); ++j){
+                
+                if(grid[i][j]) ans = max(ans,values[i][j]);
+                
+            }
+            
+        }
+
+        
+        return (norg == vorg) ? ans : -1;
+        
+    }
+    void bfs1(int i, int j, vector<vector<int>>& grid){
+        
+        int currtime;
+        for( tovisit.push({0,{i,j}}) ; tovisit.size() ; tovisit.pop() ){
+            
+            currtime = tovisit.front().first;
+            i = tovisit.front().second.first;
+            j = tovisit.front().second.second;
+            
+            if(values[i][j] == INT_MAX) ++vorg;
+            values[i][j] = min(values[i][j],currtime);
+            
+            if(i-1 >= 0 && grid[i-1][j] == 1 && !visited[{i-1,j}]){
+                
+                visited[{i-1,j}] = true;
+                tovisit.push({currtime+1,{i-1,j}});
+                
+            } 
+            if(j+1 < grid[0].size() && grid[i][j+1] == 1 && !visited[{i,j+1}]){
+                
+                visited[{i,j+1}] = true;
+                tovisit.push({currtime+1,{i,j+1}});
+                
+            } 
+            if(i+1 < grid.size() && grid[i+1][j] == 1 && !visited[{i+1,j}]){
+                
+                visited[{i+1,j}] = true;
+                tovisit.push({currtime+1,{i+1,j}});
+                
+            } 
+            if(j-1 >= 0 && grid[i][j-1] == 1 && !visited[{i,j-1}]){
+                
+                visited[{i,j-1}] = true;
+                tovisit.push({currtime+1,{i,j-1}});
+                
+            } 
+            
+        }
+        
+    }
+};
