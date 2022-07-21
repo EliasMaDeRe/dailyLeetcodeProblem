@@ -1,0 +1,36 @@
+/*
+    Link: https://leetcode.com/problems/subsets-ii/
+    Time complexity: O(2^n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<vector<int>> subsetsWithDup(vector<int>& nums){
+        
+        vector<int> curr;
+        sort(nums.begin(),nums.end());
+        subsets(curr,nums,0);
+        
+        return ans;
+        
+    }
+    void subsets(vector<int>& curr, vector<int>& nums, int index){
+        
+        ans.push_back(curr);
+        
+        for(int i = index; i < nums.size(); ++i){
+            
+            if(i == index || nums[i] != nums[i-1]){
+                
+                curr.push_back(nums[i]);
+                subsets(curr,nums,i+1);
+                curr.pop_back();
+                
+            }
+            
+        }
+        
+    }
+    
+};
