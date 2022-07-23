@@ -1,0 +1,60 @@
+/*
+    Link: https://leetcode.com/problems/course-schedule-ii/
+    Time complexity: O(v+e)
+    Space complexity: O(v+e)    
+*/
+class Solution {
+public:
+    unordered_map<int,int> visited;
+    map<int,map<int,bool>> adj;
+    bool hascycle = false;
+    vector<int> ans;
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prere) {
+        
+        
+        
+        for(int i = 0; i < prere.size(); ++i) adj[prere[i][0]][prere[i][1]];
+        
+        for(int i = 0; i < numCourses; ++i){
+            
+            if(!visited[i]){
+                
+                dfs(i);
+                
+            }
+                
+            
+        }
+        if(hascycle)
+            return {};
+        return ans;
+        
+    }
+    void dfs(int course){
+        
+        if(hascycle) return;
+        visited[course] = 1;
+        for(auto& coursesNeeded : adj[course]){
+            
+            if(visited[coursesNeeded.first] == 1){
+                
+                hascycle = true;
+                return;
+                
+            }else{
+                
+                if(!visited[coursesNeeded.first]){
+                    
+                    dfs(coursesNeeded.first);
+                    
+                }
+                
+            }
+            
+        }
+        ans.push_back(course);
+        visited[course] = 2;
+        
+        
+    }
+};
