@@ -1,0 +1,62 @@
+/*
+    Link: https://leetcode.com/problems/redundant-connection/
+*/
+class Solution {
+public:
+    int parent[1001] = {0};
+    int rank[1001] = {0};
+    int p,p1,p2;
+
+    
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        
+        for(int i = 0; i < edges.size(); ++i){
+            
+            parent[i+1] = i+1;
+            ++rank[i+1];
+            
+        }
+        for(int i = 0; i < edges.size(); ++i) if(!uni(edges[i][0],edges[i][1])) return {edges[i][0],
+                                                                                       edges[i][1]};
+            
+        
+        return {};
+        
+        
+    }
+    int find(int n){
+        
+        p = parent[n];
+        while(p != parent[p]){
+            parent[p] = parent[parent[p]];
+            p = parent[p];
+                
+        }
+        return p;
+        
+    }
+    bool uni(int node1, int node2){
+        
+        p1 = find(node1);
+        p2 = find(node2);
+        
+        if(p1 == p2)
+            return false;
+        
+        if(rank[p1] > rank[p2]){
+            
+            parent[p2] = p1;
+            rank[p1]+= rank[p2];
+            
+        }else{
+            
+            parent[p1] = p2;
+            rank[p2] += rank[p1];
+            
+        }
+        return true;
+        
+        
+    }
+
+};
