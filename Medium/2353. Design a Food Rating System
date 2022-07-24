@@ -1,0 +1,54 @@
+/*
+    Link: https://leetcode.com/problems/design-a-food-rating-system/
+    Time complexity: O(n(log(n)))
+    Space complexity: O(n)
+*/
+class FoodRatings {
+public:
+    unordered_map<string,int> R;
+    unordered_map<string,string> C;
+    map<string,map<pair<int,string>,bool>> topfood;
+    FoodRatings(vector<string>& foods, vector<string>& cuisines, vector<int>& ratings) {
+        
+        for(int i = 0; i < foods.size(); ++i){
+            
+            topfood[cuisines[i]][{ratings[i],foods[i]}];
+            C[foods[i]] = cuisines[i];
+            R[foods[i]] = ratings[i];
+        }
+        
+    }
+    
+    void changeRating(string food, int newRating) {
+        
+        topfood[C[food]].erase({R[food],food});
+        topfood[C[food]][{newRating,food}];
+        R[food] = newRating;
+        
+    }
+    
+    string highestRated(string cuisine) {
+        
+        auto it = topfood[cuisine].end();
+        --it;
+        auto next = topfood[cuisine].end();
+        --next;
+        --next;
+
+        while(it != topfood[cuisine].begin() && (it->first.first == next->first.first)){
+            
+            --it;
+            --next;
+            
+        }
+        return it->first.second;
+        
+    }
+};
+
+/**
+ * Your FoodRatings object will be instantiated and called as such:
+ * FoodRatings* obj = new FoodRatings(foods, cuisines, ratings);
+ * obj->changeRating(food,newRating);
+ * string param_2 = obj->highestRated(cuisine);
+ */
