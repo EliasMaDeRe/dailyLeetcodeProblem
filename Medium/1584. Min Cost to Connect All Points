@@ -1,0 +1,62 @@
+/*
+    LinK: https://leetcode.com/problems/min-cost-to-connect-all-points/
+    Time complexity: O(n^2 * log(n))
+    Space complexity: O(n^2)
+*/
+class Solution {
+public:
+    unordered_set<int> visited;
+    unordered_map<int,vector<pair<int,int>>> adj;
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        
+        for(int i = 0; i < points.size(); ++i){
+            
+            for(int j = i+1; j < points.size(); ++j){
+                
+                adj[i].push_back({distance(points[i],points[j]),j});
+                adj[j].push_back({distance(points[i],points[j]),i});
+                
+            }
+            
+        }
+        int ans = 0;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> minheap;
+        minheap.push({0,0});
+        
+        pair<int,int> curr;
+        while(visited.size() != points.size()){
+            
+            curr = minheap.top();
+            minheap.pop();
+            
+            if(visited.find(curr.second) != visited.end()) continue;
+            
+            ans+=curr.first;
+            visited.insert(curr.second);
+            
+            for(int i = 0; i < adj[curr.second].size(); ++i){
+                
+                if(visited.find(adj[curr.second][i].second) == visited.end()){
+                    
+                    minheap.push({adj[curr.second][i].first,adj[curr.second][i].second});
+                    
+                }
+                
+            }
+            
+        }
+        
+        return ans;
+        
+        
+        
+        
+        
+    }
+    int distance(vector<int>& p1, vector<int>& p2){
+        
+        return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1]);
+        
+    }
+
+};
