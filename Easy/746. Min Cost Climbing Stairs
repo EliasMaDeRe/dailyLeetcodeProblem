@@ -1,0 +1,27 @@
+/*
+    Link: https://leetcode.com/problems/min-cost-climbing-stairs/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int a1=0, a2=0, curr=0;
+    int minCostClimbingStairs(vector<int>& cost) {
+        
+        
+        
+        if(cost.size() == 2) return min(cost[0],cost[1]);
+        
+        for(int i = 2; i <= cost.size(); ++i){
+            
+            curr = min(a1+cost[i-1],a2+cost[i-2]);
+            a2 = a1;
+            a1 = curr;
+            
+        }
+        
+        return curr;
+        
+        
+    }
+};
