@@ -1,0 +1,84 @@
+/*
+    Link: https://leetcode.com/problems/word-ladder/
+    Time complexity: (n^2*m)
+    Space complexity: O(n^2)
+*/
+class Solution {
+public:
+    unordered_map<string,unordered_set<string>> adj;
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        
+        adj[beginWord];
+        
+        for(int i = 0; i < wordList.size(); ++i){
+
+            if(adj.find(wordList[i]) == adj.end()){
+                
+                adj[wordList[i]];
+                
+                for(auto& word : adj){
+
+                    if(word.first != wordList[i]){
+
+
+                        if(compare(word.first,wordList[i])){
+
+
+                            adj[word.first].insert(wordList[i]);
+                            adj[wordList[i]].insert(word.first);
+
+                        }
+
+                    }
+
+                }
+            }
+            
+        }
+        
+        if(adj.find(endWord) == adj.end()) return 0;
+        
+        return bfs(beginWord,endWord);
+        
+    }
+    bool compare(string s1, string s2){
+        
+        int diff = 0;
+        for(int i = 0; i < s1.size(); ++i){
+            
+            if(s1[i] != s2[i])
+                if(diff++) return false;
+            
+        }
+        return true;
+        
+    }
+    int bfs(string& beginWord, string& endWord){
+        
+        unordered_set<string> visited;
+        queue<pair<string,int>> tovisit;
+        visited.insert(beginWord);
+
+
+        for(tovisit.push({beginWord,1}) ; !tovisit.empty() ; tovisit.pop()){
+        
+            
+            if(tovisit.front().first == endWord) return tovisit.front().second;
+            for(auto& ele : adj[tovisit.front().first]){
+                
+                if(visited.find(ele) == visited.end()){
+                    
+                    
+                    visited.insert(ele);
+                    tovisit.push({ele,tovisit.front().second+1});
+                    
+                }
+                    
+                
+            }
+            
+        }
+        return 0;
+        
+    }
+};
