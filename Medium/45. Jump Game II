@@ -1,0 +1,36 @@
+/*
+    Link: https://leetcode.com/problems/jump-game-ii/
+    Time complexity: O(n^2)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    unordered_set<int> visited;
+    int jump(const vector<int>& nums) {
+        
+        if(nums.size() == 1) return 0;
+        //POSICION COSTO
+        queue<pair<int,int>> positions;
+        visited.insert(0);
+        for(positions.push({0,0}) ; positions.size() ; positions.pop()){
+            
+            for(int i = 1; i <= nums[positions.front().first]; ++i){
+                
+                if(positions.front().first+i >= nums.size()) break;
+                
+                if(visited.find(positions.front().first+i) == visited.end()){
+                    
+                    if(positions.front().first+i == nums.size()-1) return positions.front().second+1;
+                    visited.insert(positions.front().first+i);
+                    positions.push({positions.front().first+i,positions.front().second+1});
+                    
+                }
+                
+            }
+            
+        }
+        
+        return INT_MIN;
+        
+    }
+};
