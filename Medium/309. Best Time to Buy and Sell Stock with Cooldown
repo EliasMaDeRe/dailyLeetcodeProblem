@@ -1,0 +1,35 @@
+/*
+    Link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    unordered_map<int,unordered_map<int,int>> dp;
+    int maxProfit(vector<int>& prices) {
+        
+        
+        
+        return dfs(0,true,prices);
+    }
+    int dfs(int i , bool buying , vector<int>& prices){
+        
+        if(i >= prices.size()) return 0;
+        
+        if(dp.find(i) != dp.end() && dp[i].find(buying) != dp[i].end()) return dp[i][buying];
+        
+        int cooldown = dfs(i+1,buying,prices);
+        int alternative;
+        if(buying){
+            
+            alternative = dfs(i+1,false,prices)-prices[i];
+            
+        }else{
+            
+            alternative = dfs(i+2,true,prices)+prices[i];
+            
+        } 
+        dp[i][buying] = max(cooldown,alternative);
+        return dp[i][buying];
+    }
+};
