@@ -1,0 +1,61 @@
+/*
+    Link: https://leetcode.com/problems/network-delay-time/
+    Time complexity: O(n^2*log(n))
+    Space complexity: O(n^2)
+*/
+class Solution {
+public:
+    int cost[101] = {};
+
+    // [NODO] {CONECTA A , COSTO}
+    
+    unordered_map<int,vector< pair<int,int> > > adj;
+    unordered_set<int> visited;
+    
+    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        
+        memset(cost,-1,sizeof(cost));
+        
+        for(int i = 0; i < times.size(); ++i){
+            
+            adj[times[i][0]].push_back({times[i][2],times[i][1]});
+            
+        }
+        
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>> > minheap;
+        minheap.push({0,k});
+        
+        int ans = -1;
+        pair<int,int> current;
+        
+        
+        while(!minheap.empty() ){
+            
+            current = minheap.top();
+            minheap.pop();
+            
+            if(visited.find(current.second) != visited.end()) continue;
+            
+            
+            
+            ans = max(ans,current.first);
+            visited.insert(current.second);
+            
+            for(int i = 0; i < adj[current.second].size(); ++i){
+                
+                if(visited.find(adj[current.second][i].second) == visited.end()){
+                    
+                    minheap.push({current.first+adj[current.second][i].first,
+                                  adj[current.second][i].second});
+                    
+                } 
+                
+            }
+            
+            
+        }
+        
+        return visited.size() == n ? ans : -1;
+        
+    }
+};
