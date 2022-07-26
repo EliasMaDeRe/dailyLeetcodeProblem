@@ -1,0 +1,31 @@
+/*
+    Link: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+    Time complexity: O(v)
+    Space complexity: O(v)
+*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        
+        if(root == NULL || root == p || root == q) return root;
+        
+        TreeNode* answerL = lowestCommonAncestor(root->left,p,q);
+        TreeNode* answerR = lowestCommonAncestor(root->right,p,q);
+        
+        if(answerL && answerR) return root;
+        
+        return answerL ? answerL : answerR;
+        
+        
+    }
+    
+};
