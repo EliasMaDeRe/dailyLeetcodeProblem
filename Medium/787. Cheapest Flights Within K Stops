@@ -1,0 +1,36 @@
+/*
+    Link: https://leetcode.com/problems/cheapest-flights-within-k-stops/
+    Time complexity: O(v^2*k)
+    Space complexity: O(v)
+*/
+class Solution {
+public:
+
+    
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        
+        vector<int> cost(n, -1);
+        vector<int> temp(n, -1);
+        
+        cost[src] = 0;
+        
+        for(int i = 0; i < k+1; ++i){
+            
+            temp = cost;
+            
+            for(int j = 0; j < flights.size(); ++j){
+                
+                if(cost[flights[j][0]] == -1) continue;
+                if(temp[flights[j][1]] == -1)
+                    temp[flights[j][1]] = cost[flights[j][0]]+flights[j][2];
+                else temp[flights[j][1]] = min(temp[flights[j][1]],cost[flights[j][0]]+flights[j][2]);
+            }
+            
+            cost = temp;
+            
+        }
+        
+        return cost[dst];
+        
+    }
+};
