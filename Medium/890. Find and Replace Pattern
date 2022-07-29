@@ -1,0 +1,49 @@
+/*
+    Link: https://leetcode.com/problems/find-and-replace-pattern/
+    Time complexity: O(n*k)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+        
+        vector<string> ans;
+        unordered_map<char,int> dict;
+        int id = 0;
+        for(int i = 0; i < pattern.size(); ++i){
+            
+            if(dict.find(pattern[i]) == dict.end()){
+                
+                dict[pattern[i]] = id;
+                ++id;
+                
+            }
+            pattern[i] = dict[pattern[i]];
+            
+        }
+        
+        for(int i = 0; i < words.size(); ++i){
+            
+            string curr = words[i];
+            dict.clear();
+            id = 0;
+            
+            for(int j = 0; j < words[i].size(); ++j){
+                
+                if(dict.find(words[i][j]) == dict.end()){
+                    
+                    dict[words[i][j]] = id;
+                    ++id;
+                    
+                }
+                curr[j] = dict[words[i][j]];
+                
+            }
+            if( curr  == pattern ) ans.push_back(words[i]);
+            
+        }
+        
+        return ans;
+        
+    }
+};
