@@ -1,0 +1,26 @@
+/*
+    Link: https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
+    Time complexity: O(k*log(n))
+    Space complexity: O(k)
+*/
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        
+        priority_queue<pair<int,pair<int,int>>> heap;
+        
+        for(int i = 0; i < matrix.size(); ++i)
+            heap.push({-matrix[i][0],{i,0}});
+        for(int i = 0; i < k-1; ++i){
+            
+            auto curr = heap.top(); heap.pop();
+            if(curr.second.second+1 < matrix[0].size())
+                heap.push({-matrix[curr.second.first][curr.second.second+1],{curr.second.first,curr.second.second+1}});
+            
+            
+        }
+        
+        return -heap.top().first;
+        
+    }
+};
