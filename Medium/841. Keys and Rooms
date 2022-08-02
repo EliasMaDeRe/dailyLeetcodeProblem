@@ -1,0 +1,32 @@
+/*
+    Link: https://leetcode.com/problems/keys-and-rooms/
+    Time complexity: O(v+e)
+    Space complexity: O(v)
+*/
+class Solution {
+public:
+    unordered_set<int> visited;
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        
+        visited.insert(0);
+        dfs(rooms,0);
+        
+        
+        return (rooms.size() == visited.size());
+        
+    }
+    void dfs(vector<vector<int>>& rooms , int current ){
+        
+        for(int i = 0; i < rooms[current].size(); ++i){
+            
+            if(visited.find(rooms[current][i]) == visited.end()){
+                
+                visited.insert(rooms[current][i]);
+                dfs(rooms,rooms[current][i]);
+                
+            } 
+            
+        }
+        
+    }
+};
