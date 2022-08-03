@@ -1,0 +1,26 @@
+/*
+    Link: https://leetcode.com/problems/number-of-pairs-of-interchangeable-rectangles/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    long long interchangeableRectangles(vector<vector<int>>& rectangles) {
+        
+        long long ans = 0;
+        unordered_map<double,int> mapa;
+        double ratio;
+        
+        for(int i = 0; i < rectangles.size(); ++i){
+            
+            ratio = (double)rectangles[i][0] / (double)rectangles[i][1];
+            if(mapa[ratio]) ans+=mapa[ratio]; 
+            ++mapa[ratio];
+            
+        }
+
+        return ans;
+        
+    }
+
+};
