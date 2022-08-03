@@ -1,0 +1,81 @@
+/*
+    Link: https://leetcode.com/problems/my-calendar-i/
+    Time complexity: O(n^2)
+    Space complexity: O(n)
+*/
+class MyCalendar {
+public:
+    class intervalNode{
+      public:
+        int start;
+        int end;
+        intervalNode* left;
+        intervalNode* right;
+        intervalNode(int start, int end){
+            
+            this->start = start;
+            this->end = end;
+            this->left = NULL;
+            this->right = NULL;
+            
+        }
+        
+        
+    };
+    intervalNode* root;
+    intervalNode* curr;
+    MyCalendar() {
+        root = NULL;
+    }
+    
+    bool book(int start, int end) {
+        
+        if(!root){
+            
+            root = new intervalNode(start,end);
+            
+        }else{
+            
+            curr = root;
+            while(curr){
+                
+                if(start < curr->start && end <= curr->start){
+                    
+                    if(curr->left)
+                        curr = curr->left;
+                    else{
+                        
+                        curr->left = new intervalNode(start,end);
+                        return true;
+                        
+                    } 
+                    
+                } 
+                else if(start >= curr->end && end > curr->end){
+                    
+                    if(curr->right)
+                        curr = curr->right;
+                    else{
+                        
+                        curr->right = new intervalNode(start,end);
+                        return true;
+                        
+                    } 
+                    
+                } 
+                else return false;
+                
+            }
+            
+        }
+        
+        return true;
+        
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(start,end);
+ */
