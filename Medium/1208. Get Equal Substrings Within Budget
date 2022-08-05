@@ -1,0 +1,26 @@
+/*
+    Link: https://leetcode.com/problems/get-equal-substrings-within-budget/
+    Time complexity: O(n)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int equalSubstring(const string s, const string t, int maxCost) {
+        int curr = 0;
+        int st = 0, e = 0;
+        while(e < s.size()){
+            
+            maxCost -= abs(s[e]-t[e]);
+            while(maxCost < 0 && st <= e){
+                
+                maxCost += abs(s[st]-t[st++]);
+                
+            }
+            curr = max(curr,(e-st)+1);
+            ++e;
+            
+        }
+        
+        return curr;
+    }
+};
