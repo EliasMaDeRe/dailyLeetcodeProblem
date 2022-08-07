@@ -1,0 +1,37 @@
+/*
+    Link: https://leetcode.com/problems/find-original-array-from-doubled-array/
+    Time complexity: O(n(log(n)))
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    vector<int> findOriginalArray(vector<int>& changed) {
+        
+        vector<int> ans;        
+        map<int,int> have;
+        
+        for(int i = 0; i < changed.size(); ++i)
+            have[changed[i]]++;
+        
+        for(auto& x : have){
+            
+            if(!x.second) continue;
+            
+            while(have[x.first]--){
+            
+                if(have.find(x.first*2) == have.end() || !have[x.first*2])
+                    return {};
+                have[x.first*2]--;
+                ans.push_back(x.first);
+                
+            }
+            
+            
+            
+            
+        }
+        
+        return ans;
+        
+    }
+};
