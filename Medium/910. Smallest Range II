@@ -1,0 +1,18 @@
+/*
+    Link: https://leetcode.com/problems/smallest-range-ii/
+    Time complexity: O(n(log(n)))
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int smallestRangeII(vector<int>& A, int K) {
+        sort(A.begin(), A.end());
+        
+        int ans = A.back() - A.front(); 
+        for (int i=0; i<A.size()-1;i++)
+
+            ans = min(ans, max(A[i]+K, A.back()-K) - min(A.front()+K, A[i+1]-K));
+        
+        return ans;
+    }
+};
