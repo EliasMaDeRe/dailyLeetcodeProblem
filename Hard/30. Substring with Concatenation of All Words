@@ -1,0 +1,48 @@
+/*
+    Link: https://leetcode.com/problems/substring-with-concatenation-of-all-words/
+    Time complexity: O(n^2)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) {
+        
+        vector<int> ans;
+        
+        int n = words.size(), m = words[0].size(), total = n*m;
+        
+        if(s.size() < total) return ans;
+        
+        unordered_map<string,int> need;
+        for(auto& word : words) ++need[word];
+        
+        unordered_map<string,int> have;
+        string curr;
+        
+        for(int i = 0; i <= s.size()-total; ++i){
+            
+            int needed = n;
+            int start = i;
+            have.clear();
+            while(needed){
+                
+                curr = s.substr(start,m);
+                ++have[curr];
+                if(need.find(curr) != need.end() && need[curr] >= have[curr]){
+                    
+                    --needed;
+                    start+=m;
+                    
+                }else break;
+                
+            }
+            if(!needed)
+                ans.push_back(i);
+            
+            
+        }
+        
+        return ans;
+
+    }
+};
