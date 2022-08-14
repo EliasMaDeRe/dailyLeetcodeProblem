@@ -1,0 +1,53 @@
+/*
+    Link: https://leetcode.com/problems/construct-smallest-number-from-di-string/
+    Time complexity: O(n^2)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    string smallestNumber(string pattern) {
+    
+        string ans;
+        if(pattern.back() == 'D')
+            ans+="21";
+        else ans+="12";
+        
+        for(int i = pattern.size()-2; i >= 0; --i){
+            
+            if(pattern[i] == 'D'){
+                
+                ans = to_string((ans.front()-'0')+1)+ans;
+                for(int j = 1; j < ans.size(); ++j){
+                    
+                    while(j < ans.size() && ans[j] < ans[j-1]) ++j;
+                    
+                    while(j < ans.size()){
+                        
+                        ans[j]++;
+                        ++j;
+                        
+                    }
+
+                    
+                    
+                }
+                
+            }else{
+                
+                ans = "1"+ans;
+                for(int j = 1; j < ans.size(); ++j){
+                    
+                    ++ans[j];
+                    
+                }
+                
+            }
+            
+            cout<<ans<<"\n";
+            
+        }
+        
+        return ans;
+        
+    }
+};
