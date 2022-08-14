@@ -1,0 +1,42 @@
+/*
+    Link: https://leetcode.com/problems/node-with-highest-edge-score/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    int edgeScore(vector<int>& edges) {
+        
+        map<long long,long long> val;
+        long long resi = -1;
+        long long res = -1;
+        
+        for(int i = 0; i < edges.size(); ++i){
+            
+            val[edges[i]] += i;
+            if(val[edges[i]] > res){
+                
+                res = val[edges[i]];
+                resi = edges[i];
+                
+            }else{
+                
+                if(val[edges[i]] == res){
+                    
+                    if(edges[i] < resi){
+                        
+                        res = val[edges[i]];
+                        resi = edges[i];
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        return resi;
+        
+    }
+};
