@@ -1,0 +1,58 @@
+/*
+  Link: https://leetcode.com/problems/roman-to-integer/
+  Time complexity: O(n)
+  Space complexity: O(1)
+*/
+class Solution {
+public:
+    int romanToInt(string s) {
+        int val[13] = {1,4,5,9,10,40,50,90,100,400,500,900,1000};
+        string pos[13] = { "I" , "IV" , "V" , "IX" , "X" , "XL" , "L" , "XC" , "C" , "CD" , "D" , "CM" , "M"};
+        int ans = 0;
+        string c = "";
+        bool flag;
+        
+        for(int i = s.size()-1; i >= 0; --i){
+            
+            if(i-1 >= 0){
+                
+                c = s.substr(i-1,2);
+                flag = false;
+                for(int j = 0; j < 13; ++j){
+                    
+                    if(c == pos[j]){
+                        ans+=val[j];
+                        --i;
+                        flag = true;
+                        break;
+                        
+                    }
+                    
+                }
+                c = s.substr(i,1);
+                if(!flag)
+                    for(int j = 0; j < 13; ++j)
+                            if(c == pos[j]){
+                                ans+=val[j];
+                                break;
+                                
+                            }
+                
+            }else{
+                c = s.substr(i,1);
+                for(int j = 0; j < 13; ++j)
+                    if(c == pos[j]){
+                        
+                        ans+=val[j];
+                        break;
+                        
+                    }
+                
+            }
+            
+        }
+        
+        return ans;
+        
+    }
+};
