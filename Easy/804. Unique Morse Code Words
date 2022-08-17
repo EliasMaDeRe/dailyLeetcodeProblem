@@ -1,0 +1,25 @@
+/*
+    Link: https://leetcode.com/problems/unique-morse-code-words/
+    Time complexity: O(n*m)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    unordered_set<string> have;
+    string d[26] = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+    int uniqueMorseRepresentations(vector<string>& words) {
+        string curr = "";
+        for(int i = 0; i < words.size(); ++i){
+            curr = "";
+            for(int j = 0; j < words[i].size(); ++j){
+                
+                curr+=d[words[i][j]-'a'];
+                
+            }
+            have.insert(curr);
+            
+        }
+        return have.size();
+        
+    }
+};
