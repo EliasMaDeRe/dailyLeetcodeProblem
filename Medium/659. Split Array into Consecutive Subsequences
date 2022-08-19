@@ -1,0 +1,42 @@
+/*
+    Link: https://leetcode.com/problems/split-array-into-consecutive-subsequences/
+    Time complexity: O(n)
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    bool isPossible(vector<int>& nums) 
+    {
+        int have[2002] = {0};
+        int end[2002] = {0};
+        
+        for(int i = 0; i < nums.size(); ++i)
+            ++have[nums[i]+1001];
+        for(int i = 0; i < nums.size(); ++i){
+            
+            if(!have[nums[i]+1001]) continue;
+            
+            --have[nums[i]+1001];
+            
+            if(end[nums[i]-1+1001]){
+                
+                --end[nums[i]-1+1001];
+                ++end[nums[i]+1001];
+                
+                
+            }else{
+                
+                if(!have[nums[i]+1+1001] || !have[nums[i]+2+1001])
+                    return false;
+
+                --have[nums[i]+1+1001];
+                --have[nums[i]+2+1001];
+                ++end[nums[i]+2+1001];
+                
+            }
+            
+        }
+        
+        return true;        
+    }
+};
