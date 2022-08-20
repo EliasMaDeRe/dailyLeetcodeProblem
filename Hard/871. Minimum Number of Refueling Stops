@@ -1,0 +1,34 @@
+/*
+    Link: https://leetcode.com/problems/minimum-number-of-refueling-stops/
+    Time complexity: O(n(log(n)))
+    Space complexity: O(n)
+*/
+class Solution {
+public:
+    int minRefuelStops(int target, int startFuel, const vector<vector<int>>& stations) {
+        int n = stations.size();
+        
+        priority_queue<int> pq; 
+        int curr = startFuel;
+        int i = 0;
+        int result = 0;
+        int d;
+        while(curr < target) {
+
+            while(i < n && stations[i][0] <= curr)
+                pq.push(stations[i++][1]);
+
+            if(pq.empty())
+                return -1;
+
+            d = pq.top();
+            pq.pop();
+
+            curr += d;
+            ++result;
+        }
+        
+        return result;
+    }
+        
+};
