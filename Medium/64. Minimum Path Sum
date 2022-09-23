@@ -1,0 +1,32 @@
+/*
+    Link: https://leetcode.com/problems/minimum-path-sum/
+    Time complexity: O(nm)
+    Space complexity: O(nm)
+*/
+class Solution {
+public:
+    int cost[201][201] = {};
+    int minPathSum(const vector<vector<int>>& grid) {
+        
+        return minPath(grid.size()-1,grid[0].size()-1,grid);
+        
+    }
+    int minPath(int i, int j, const vector<vector<int>>& grid){
+        
+        if(cost[i][j]) return cost[i][j];
+        
+        if(i-1 < 0 && j-1 >= 0)
+            cost[i][j] = grid[i][j] + minPath(i,j-1,grid);
+        if(j-1 < 0 && i-1 >= 0)          
+            cost[i][j] = grid[i][j] + minPath(i-1,j,grid);         
+        if(i-1 < 0 && j-1 < 0)
+            cost[i][j] = grid[i][j];
+        if(i-1 >= 0 && j-1 >= 0)
+            cost[i][j] = grid[i][j] + min(minPath(i-1,j,grid),minPath(i,j-1,grid));
+        return cost[i][j];         
+        
+        
+        
+        
+    }
+};
