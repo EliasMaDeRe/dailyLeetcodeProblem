@@ -1,0 +1,34 @@
+/*
+    Link: https://leetcode.com/problems/take-gifts-from-the-richest-pile/description/
+*/
+class Solution {
+public:
+    long long pickGifts(vector<int>& gifts, int k) {
+        
+        long long total = 0, temp;
+        priority_queue<int> pq;
+        
+        for(int i = 0; i < gifts.size(); ++i){
+            
+            total+=gifts[i];
+            pq.push(gifts[i]);
+            
+        }
+        
+        
+        
+        for(int i = 0; i < k; ++i){
+            
+                temp = pq.top();
+                pq.pop();
+                total -= temp-(long long)sqrt(temp);
+                temp = (long long)sqrt(temp);
+                pq.push(temp);
+                
+            
+        }
+        
+        return total;
+        
+    }
+};
