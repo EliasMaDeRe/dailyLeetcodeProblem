@@ -1,0 +1,35 @@
+/*
+    Link: https://leetcode.com/problems/count-vowel-strings-in-ranges/solutions/
+*/
+class Solution {
+public:
+    bool eVocal(string& word){
+        
+        return (word[0] == 'a' || word[0] == 'e' || word[0] == 'i' || word[0] == 'o' || word[0] == 'u') && (word[word.size()-1]
+                == 'a' || word[word.size()-1] == 'e' || word[word.size()-1] == 'i' || word[word.size()-1] == 'o' || word[word.size()-1] == 'u');
+        
+    }
+    vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
+        
+        unordered_map<int,int> left;
+        
+        left[0] = 0;
+            
+        for(int i = 1; i < words.size(); ++i){
+            
+            left[i] = left[i-1]+(eVocal(words[i-1]));
+            
+        }
+        
+        vector<int> ans;
+        
+        for(auto& querie : queries){
+            
+            ans.push_back((eVocal(words[querie[1]]))+(left[querie[1]]-left[querie[0]]));
+            
+        }
+                                                                           
+        return ans;
+        
+    }
+};
