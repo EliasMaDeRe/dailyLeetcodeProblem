@@ -1,0 +1,43 @@
+/*
+    Link: https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/description/
+    Time complexity: O(1)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int minOperations(int n) {
+        int t;
+        int ans  = 0;
+        bool b = false;
+        while( n != 0){
+            
+            if(n & 1){
+                
+                b = false;
+                while(n != 0 && n>>1 & 1){
+                    n>>=1;
+                    b = true;
+                }
+                n>>=1;
+
+                if(b){
+                    if(n == 0){
+
+                        return ans+2;
+
+                    }                  
+                    ++ans;
+                    ++n;
+                }else{
+                    ++ans;
+                }
+                
+            }else{
+            n>>=1;
+            }
+                
+            
+        }
+        return ans;
+    }
+};
