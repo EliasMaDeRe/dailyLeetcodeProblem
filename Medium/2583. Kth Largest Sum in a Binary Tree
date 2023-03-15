@@ -1,0 +1,46 @@
+/*
+    Link: https://leetcode.com/problems/kth-largest-sum-in-a-binary-tree/description/
+    Time complexity: O(V+E)
+    Space complexity: O(V)
+*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    priority_queue< long long > levels;
+    long long kthLargestLevelSum(TreeNode* root, int k) {
+        queue<TreeNode*> curr;
+        queue<TreeNode*> nextL;
+        long long sum = 0;
+        nextL.push(root);
+        while(!nextL.empty()){
+            
+            sum = 0;
+            curr = nextL;
+            nextL = queue<TreeNode*>();
+            while(!curr.empty()){
+                sum += curr.front()->val;
+                if(curr.front()->left) nextL.push(curr.front()->left);
+                if(curr.front()->right) nextL.push(curr.front()->right);
+                curr.pop();
+            }
+            levels.push(sum);
+            
+            
+            
+        }
+        if(levels.size() < k) return -1;
+        for(long long j = 0; j < k-1; ++j)
+            levels.pop();
+        return levels.top();
+    }
+};
