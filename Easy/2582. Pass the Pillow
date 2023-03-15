@@ -1,0 +1,17 @@
+/*
+    Link: https://leetcode.com/problems/pass-the-pillow/description/
+    Time complexity: O(1)
+    Space complexity: O(1)
+*/
+class Solution {
+public:
+    int passThePillow(int n, int time) {
+        if(time/(n-1) % 2){ // regreso
+            
+            return (n-(time%(n-1)));
+            
+        }else{
+            return (1+(time%(n-1)));
+        }
+    }
+};
