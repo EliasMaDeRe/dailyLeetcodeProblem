@@ -1,0 +1,58 @@
+/*
+    Link: https://leetcode.com/problems/01-matrix/description/
+    Time complexity: O(n*m)
+    Space complexity: O(n*m)
+*/
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+        vector<vector<int>> res = mat;
+        queue<pair<int,int>> cola;
+        queue<pair<int,int>> sigCola;
+        map<pair<int,int>,bool> visit;
+        for(int i = 0; i < mat.size(); ++i){
+            for(int j = 0; j < mat[i].size(); ++j){
+                if(!visit[{i,j}] && !mat[i][j]){
+                    visit[{i,j}] = true;
+                    cola.push({i,j});
+                }
+            }
+        }
+        pair<int,int> actual;
+        int dist = 0;
+        while(!cola.empty()){
+            
+            while(!cola.empty()){
+                actual = cola.front();
+                cola.pop();
+                res[actual.first][actual.second] = dist;
+                if(isValid(actual.first+1,actual.second,mat,visit)){
+                    visit[{actual.first+1,actual.second}] = true;
+                    sigCola.push({actual.first+1,actual.second});
+                }
+                if(isValid(actual.first,actual.second+1,mat,visit)){
+                    visit[{actual.first,actual.second+1}] = true;
+                    sigCola.push({actual.first,actual.second+1});
+                }
+                if(isValid(actual.first-1,actual.second,mat,visit)){
+                    visit[{actual.first-1,actual.second}] = true;
+                    sigCola.push({actual.first-1,actual.second});
+                }
+                if(isValid(actual.first,actual.second-1,mat,visit)){
+                    visit[{actual.first,actual.second-1}] = true;
+                    sigCola.push({actual.first,actual.second-1});
+                }
+            }
+            ++dist;
+            cola = sigCola;
+            sigCola = queue<pair<int,int>>();
+        }
+        return res;
+    }
+    bool isValid(int i, int j, vector<vector<int>>& mat, map<pair<int,int>,bool>& visit){
+        if( i < 0 || j < 0) return false;
+        if(mat.size() <= i || mat[i].size() <= j) return false;
+        if(!mat[i][j] || visit[{i,j}]) return false;
+        return true;
+    }
+};
